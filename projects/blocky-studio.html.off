@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blocky Studio | Blockyfy</title>
+<meta name="description" content="A Windows desktop studio for Minecraft structures and worldgen. Design, preview in 3D, lint for quality and export to .nbt, .schem, .litematic and .bbmodel. Built for humans and AI assistants.">
+<meta property="og:title" content="Blocky Studio">
+<meta property="og:description" content="The desktop studio for Minecraft structures and worldgen, by Blockyfy.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%238ef0c0' d='M12 1.5 22 7l-10 5.5L2 7z'/%3E%3Cpath fill='%232ea36d' d='M2 7v10.5L12 23V12.5z'/%3E%3Cpath fill='%2359d99d' d='M22 7v10.5L12 23V12.5z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="../index.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#8ef0c0" d="M12 1.5 22 7l-10 5.5L2 7z"/>
+        <path fill="#2ea36d" d="M2 7v10.5L12 23V12.5z"/>
+        <path fill="#59d99d" d="M22 7v10.5L12 23V12.5z"/>
+      </svg>
+      BLOCKYFY
+    </a>
+    <button class="nav-burger" aria-label="Menu">☰</button>
+    <nav class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="#features">Features</a>
+      <a href="#download">Download</a>
+      <a href="dragon-block-galactic.html">Dragon Block Galactic</a>
+      <a class="btn" href="#support">Become a supporter</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <canvas class="stars" aria-hidden="true"></canvas>
+  <div class="wrap hero-inner">
+    <span class="eyebrow">Blockyfy Tools</span>
+    <h1>BLOCKY <span class="glow">STUDIO</span></h1>
+    <p class="lede">The desktop studio for Minecraft structures and worldgen. Design in code or in the editor, orbit your build in 3D, lint it for quality and export it anywhere.</p>
+    <div class="badges">
+      <span class="badge">Windows desktop</span>
+      <span class="badge">.nbt · .schem · .litematic · .bbmodel</span>
+      <span class="badge hot">Private preview</span>
+    </div>
+    <div class="cta-row">
+      <a class="btn" href="#download">Get the app</a>
+      <a class="btn btn-ghost" href="#support">Support development</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Features</span>
+      <h2>From idea to in-game, fast</h2>
+      <p>Born inside the Dragon Block Galactic pipeline and battle-tested on real builds before it ever became a product.</p>
+    </div>
+    <div class="grid cols-3">
+      <div class="card reveal">
+        <h3><span class="ico">🧱</span> Voxel engine</h3>
+        <p>A sparse voxel canvas with parametric shapes, deterministic palettes and vanilla-faithful baking of stairs, fences and connections.</p>
+      </div>
+      <div class="card reveal">
+        <h3><span class="ico">🌀</span> 3D preview</h3>
+        <p>Orbit your structure in a live viewer with layer slicing, plus rendered elevations, cutaways and contact sheets for quick review.</p>
+      </div>
+      <div class="card reveal">
+        <h3><span class="ico">🎨</span> Palette browser</h3>
+        <p>Browse 800+ blocks with color swatches, search and filters. Click to copy ids or assemble weighted palettes visually.</p>
+      </div>
+      <div class="card reveal">
+        <h3><span class="ico">⛰</span> Worldgen tools</h3>
+        <p>Heightmaps, strata, water, scatter rules and placement constraints, with automatic region previews of the generated terrain.</p>
+      </div>
+      <div class="card reveal">
+        <h3><span class="ico">🔁</span> Interop everywhere</h3>
+        <p>Import and export .nbt, .schem and .litematic, plus .bbmodel export that opens natively in Blockbench. Multi-version palettes from 1.20.1 to 1.21.5.</p>
+      </div>
+      <div class="card reveal">
+        <h3><span class="ico">🤖</span> Built for AI workflows</h3>
+        <p>A headless CLI and an MCP server let AI assistants design, lint and iterate on structures with you, with quality checks built in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="download">
+  <div class="wrap">
+    <div class="band reveal">
+      <span class="eyebrow">Download</span>
+      <h2>Currently in private preview</h2>
+      <p>Blocky Studio is being polished with a small group of builders before the public release. Supporters get preview builds first.</p>
+      <div class="cta-row">
+        <button class="btn soon" disabled title="Public download not open yet">Download for Windows</button>
+        <a class="btn btn-ghost" href="#support">Get preview access</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="support">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Supporter program</span>
+      <h2>Help us build the builder</h2>
+      <p>Supporting funds development and puts every new build in your hands before anyone else.</p>
+    </div>
+    <div class="tiers reveal" data-tiers="blocky-studio"></div>
+    <p class="tiers-note"><span class="lock">🔒</span> Secure checkout by Stripe. Cancel anytime from the customer portal.</p>
+  </div>
+</section>
+
+<section class="section alt" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions, answered</h2>
+    </div>
+    <div class="faq reveal">
+      <details>
+        <summary>What platforms are supported?</summary>
+        <p>Windows today, as a lightweight desktop app with a one-click installer that does not require admin rights.</p>
+      </details>
+      <details>
+        <summary>Does it work with my mod's custom blocks?</summary>
+        <p>Yes. A simple project config teaches the studio any modded block registry, and new blocks flow into palettes and previews automatically.</p>
+      </details>
+      <details>
+        <summary>What does "built for AI" mean?</summary>
+        <p>Blocky Studio exposes its whole engine through a CLI and an MCP server. AI assistants like Claude can create, validate and refine structures in your project while you review everything in the 3D viewer.</p>
+      </details>
+      <details>
+        <summary>Can I cancel my support anytime?</summary>
+        <p>Yes. Subscriptions are managed through a secure Stripe customer portal where you can cancel or change your tier in one click.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div>
+      <a class="brand" href="../index.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#8ef0c0" d="M12 1.5 22 7l-10 5.5L2 7z"/>
+          <path fill="#2ea36d" d="M2 7v10.5L12 23V12.5z"/>
+          <path fill="#59d99d" d="M22 7v10.5L12 23V12.5z"/>
+        </svg>
+        BLOCKYFY
+      </a>
+    </div>
+    <div class="footer-col">
+      <strong>Projects</strong>
+      <a href="dragon-block-galactic.html">Dragon Block Galactic</a>
+      <a href="blocky-studio.html">Blocky Studio</a>
+    </div>
+    <div class="footer-col">
+      <strong>Community</strong>
+      <a href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Discord</a>
+      <a href="https://www.youtube.com/@BlockyfyStudios" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://x.com/blockyfystudios" target="_blank" rel="noopener">X (Twitter)</a>
+      <a href="https://www.instagram.com/blockyfy/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@blockyfystudios" target="_blank" rel="noopener">TikTok</a>
+    </div>
+    <div class="footer-col">
+      <strong>Studio</strong>
+      <a href="../index.html#about">About</a>
+      <a href="mailto:contact@blockyfy.com">Contact</a>
+    </div>
+    <div class="fine">
+      <span>© <span data-year>2026</span> Blockyfy. All rights reserved.</span>
+      <span>Payments processed securely by Stripe.</span>
+      <span>Not affiliated with Mojang or Microsoft.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../payments.config.js"></script>
+<script src="../assets/js/checkout.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
