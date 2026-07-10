@@ -23,7 +23,7 @@
     project.tiers.forEach(function (tier) {
       var card = el("article", "tier" + (tier.featured ? " featured" : ""));
 
-      if (tier.featured) card.appendChild(el("span", "flag", "Most popular"));
+      if (tier.featured) card.appendChild(el("span", "splash", "Early Access!"));
 
       card.appendChild(el("h3", null, tier.name));
       if (tier.tagline) card.appendChild(el("p", "tagline", tier.tagline));
