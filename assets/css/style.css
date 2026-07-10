@@ -563,61 +563,83 @@ p { margin: 0 0 1em; }
 
 /* ---------------------------------------------------------------- buttons */
 
-/* Angular game-UI buttons: flat block, cut corners, chunky offset shadow.
-   clip-path clips box-shadow, so depth comes from filter: drop-shadow. */
+/* Botoes "placa inclinada": plate com skew no fundo (::before) + moldura de
+   eco deslocada atras (::after). O texto fica reto; so o fundo inclina.
+   Hover: a placa desliza e encaixa na moldura. */
 .btn {
   position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 9px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.92rem;
-  letter-spacing: 0.09em;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 15px 30px;
+  padding: 15px 34px;
   border: 0;
   border-radius: 0;
   cursor: pointer;
-  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  background: transparent;
+  color: var(--accent-ink);
+  transition: color 0.15s ease;
+}
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: var(--accent);
-  color: var(--accent-ink);
-  filter: drop-shadow(5px 5px 0 rgba(2, 6, 14, 0.85));
-  transition: transform 0.14s var(--ease-out), filter 0.14s var(--ease-out), background 0.14s ease, color 0.14s ease;
+  transform: skewX(-10deg);
+  transition: transform 0.16s var(--ease-out), background 0.16s ease, box-shadow 0.16s ease;
 }
-.btn:hover {
-  transform: translate(-2px, -2px);
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  border: 1px solid var(--accent);
+  opacity: 0.55;
+  transform: skewX(-10deg) translate(6px, 6px);
+  transition: transform 0.16s var(--ease-out), opacity 0.16s ease;
+}
+.btn:hover { color: var(--accent-ink); }
+.btn:hover::before {
+  transform: skewX(-10deg) translate(3px, 3px);
   background: var(--accent-hi);
-  color: var(--accent-ink);
-  filter: drop-shadow(7px 7px 0 rgba(2, 6, 14, 0.85)) drop-shadow(0 0 18px var(--accent-glow));
+  box-shadow: 0 10px 34px var(--accent-glow);
 }
-.btn:active {
-  transform: translate(2px, 2px);
-  filter: drop-shadow(2px 2px 0 rgba(2, 6, 14, 0.85));
-}
+.btn:hover::after { transform: skewX(-10deg) translate(6px, 6px); opacity: 0.9; }
+.btn:active::before { transform: skewX(-10deg) translate(6px, 6px); }
+.btn:focus-visible { outline: 2px solid var(--accent-hi); outline-offset: 5px; }
 
 .btn .arr { transition: transform 0.2s var(--ease-out); }
 .btn:hover .arr { transform: translateX(4px); }
 
-.btn-lg { padding: 18px 38px; font-size: 1rem; }
+.btn-lg { padding: 18px 42px; font-size: 0.98rem; }
 
-.btn-ghost {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.02) 34%, transparent), #121a2e;
-  color: var(--ink);
+.btn-ghost { color: var(--ink); }
+.btn-ghost::before {
+  background: #101a30;
+  border: 1px solid var(--line-strong);
 }
-.btn-ghost:hover {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.02) 34%, transparent), #16203a;
-  color: var(--accent-hi);
+.btn-ghost::after { border-color: var(--line-strong); opacity: 0.5; }
+.btn-ghost:hover { color: var(--accent-hi); }
+.btn-ghost:hover::before {
+  background: #16223c;
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px rgba(2, 4, 10, 0.5);
 }
 
 .btn[disabled], .btn.soon {
-  background: #121a2e;
   color: var(--faint);
   cursor: not-allowed;
-  transform: none;
-  filter: drop-shadow(3px 3px 0 rgba(2, 6, 14, 0.5));
 }
+.btn[disabled]::before, .btn.soon::before { background: #121a2e; }
+.btn[disabled]::after, .btn.soon::after { display: none; }
+.btn[disabled]:hover::before, .btn.soon:hover::before { transform: skewX(-10deg); box-shadow: none; }
 
 /* ---------------------------------------------------------------- sections */
 
