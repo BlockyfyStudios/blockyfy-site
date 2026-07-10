@@ -1155,7 +1155,8 @@ p { margin: 0 0 1em; }
   font-size: 0.85rem;
   margin-top: 30px;
 }
-.tiers-note .lock { color: var(--accent); }
+.tiers-note .lock { color: var(--accent); display: inline-flex; vertical-align: -3px; }
+.tiers-note .lock svg { width: 15px; height: 15px; }
 
 /* ---------------------------------------------------------------- faq */
 
