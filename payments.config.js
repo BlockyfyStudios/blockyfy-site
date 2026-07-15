@@ -17,6 +17,9 @@ window.BLOCKYFY_PAYMENTS = {
   projects: {
     "dragon-block-galactic": {
       accent: "gold",
+      /* Pagamentos PAUSADOS enquanto o CNPJ da Blockyfy esta em criacao.
+         Pra reabrir, troque checkoutOpen pra true (as URLs continuam abaixo). */
+      checkoutOpen: false,
       note: "The mod is free and will remain free. Supporting funds development and unlocks perks.",
       tiers: [
         {

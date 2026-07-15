@@ -2,7 +2,9 @@
    A container declares which project it wants:
      <div class="tiers" data-tiers="dragon-block-galactic"></div>
    Tiers with a checkoutUrl become live "Subscribe" links (Stripe Payment
-   Links). Tiers without one render a disabled "Opening soon" button. */
+   Links). Tiers without one render a disabled "Opening soon" button.
+   A project with checkoutOpen: false renders every tier as disabled,
+   keeping the URLs in the config for when payments reopen. */
 (function () {
   "use strict";
 
@@ -39,7 +41,7 @@
       });
       card.appendChild(list);
 
-      if (tier.checkoutUrl) {
+      if (project.checkoutOpen !== false && tier.checkoutUrl) {
         var link = el("a", "btn", "Subscribe");
         link.href = tier.checkoutUrl;
         link.target = "_blank";
