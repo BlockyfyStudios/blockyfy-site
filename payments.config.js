@@ -60,8 +60,7 @@ window.BLOCKYFY_PAYMENTS = {
           perks: [
             "Everything in Super Warrior",
             "Priority feature suggestions",
-            "Legendary role and highlighted credits",
-            "Early look at concept art and prototypes"
+            "Legendary role and highlighted credits"
           ],
           checkoutUrl: "https://buy.stripe.com/bJe8wO0T59AF5H56HJ1Jm02",
           featured: false
