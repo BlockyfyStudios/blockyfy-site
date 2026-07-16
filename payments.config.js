@@ -18,7 +18,8 @@ window.BLOCKYFY_PAYMENTS = {
     "dragon-block-galactic": {
       accent: "gold",
       /* Pagamentos PAUSADOS enquanto o CNPJ da Blockyfy esta em criacao.
-         Pra reabrir, troque checkoutOpen pra true (as URLs continuam abaixo). */
+         Pra reabrir: troque checkoutOpen pra true e cole as URLs dos
+         Payment Links nos campos checkoutUrl (guardadas fora do repo). */
       checkoutOpen: false,
       note: "The mod is free and will remain free. Supporting funds development and unlocks perks.",
       tiers: [
@@ -33,7 +34,7 @@ window.BLOCKYFY_PAYMENTS = {
             "Behind the scenes dev logs",
             "Your name in the supporter credits"
           ],
-          checkoutUrl: "https://buy.stripe.com/6oU8wO6dpdQV4D11np1Jm00",
+          checkoutUrl: "",
           featured: false
         },
         {
@@ -48,7 +49,7 @@ window.BLOCKYFY_PAYMENTS = {
             "Closed beta invitations",
             "Vote on the development roadmap"
           ],
-          checkoutUrl: "https://buy.stripe.com/8x2fZg9pBeUZ1qPd671Jm01",
+          checkoutUrl: "",
           featured: true
         },
         {
@@ -62,7 +63,7 @@ window.BLOCKYFY_PAYMENTS = {
             "Priority feature suggestions",
             "Legendary role and highlighted credits"
           ],
-          checkoutUrl: "https://buy.stripe.com/bJe8wO0T59AF5H56HJ1Jm02",
+          checkoutUrl: "",
           featured: false
         }
       ]
