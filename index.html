@@ -39,7 +39,7 @@
     <button class="nav-burger" aria-label="Menu" aria-expanded="false">☰</button>
     <nav class="nav-links">
       <a href="#projects">Projects</a>
-      <a href="/projects/dragon-block-galactic">Dragon Block Galactic</a>
+      <a class="proj-dbg" href="/projects/dragon-block-galactic">Dragon Block Galactic</a>
       <a href="#studio">Studio</a>
       <a href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Community</a>
       <a class="btn" href="/projects/dragon-block-galactic#support">Become a supporter</a>
@@ -69,6 +69,34 @@
     </ul>
   </div>
   <a class="scroll-cue" href="#projects" aria-label="Scroll to projects"><span></span></a>
+  <div class="horizon" aria-hidden="true">
+    <!-- Skyline de blocos colocada retangulo a retangulo, sem geracao. -->
+    <svg viewBox="0 0 1600 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#0d1b2e">
+        <rect x="0" y="80" width="230" height="70"/>
+        <rect x="180" y="58" width="90" height="92"/>
+        <rect x="430" y="96" width="250" height="54"/>
+        <rect x="640" y="50" width="110" height="100"/>
+        <rect x="900" y="88" width="290" height="62"/>
+        <rect x="1150" y="66" width="120" height="84"/>
+        <rect x="1390" y="96" width="210" height="54"/>
+      </g>
+      <g fill="#070f1c">
+        <rect x="0" y="112" width="350" height="38"/>
+        <rect x="300" y="94" width="160" height="56"/>
+        <rect x="520" y="118" width="430" height="32"/>
+        <rect x="880" y="102" width="190" height="48"/>
+        <rect x="1030" y="124" width="570" height="26"/>
+        <rect x="1250" y="90" width="150" height="60"/>
+      </g>
+      <g fill="#59d99d" fill-opacity="0.5">
+        <rect x="214" y="76" width="8" height="8"/>
+        <rect x="676" y="70" width="8" height="8"/>
+        <rect x="1188" y="84" width="8" height="8"/>
+        <rect x="342" y="104" width="8" height="8"/>
+      </g>
+    </svg>
+  </div>
 </section>
 
 <div class="ticker" aria-hidden="true">
@@ -85,6 +113,35 @@
     <span>No publisher, no ads</span><i>✦</i>
   </div>
 </div>
+
+<section class="section" id="news">
+  <div class="wrap">
+    <header class="section-head reveal">
+      <p class="eyebrow">Latest news</p>
+      <h2>Fresh from the forge</h2>
+    </header>
+    <div class="grid cols-3" data-stagger>
+      <article class="card reveal">
+        <p class="kicker">July 2026 · Community</p>
+        <h3>The Blockyfy Discord is open</h3>
+        <p>Dev talk, suggestions and our first members settling in. Come say hi.</p>
+        <a class="more" href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Join the server <span class="arr" aria-hidden="true">→</span></a>
+      </article>
+      <article class="card reveal">
+        <p class="kicker">July 2026 · Dragon Block Galactic</p>
+        <h3>The galaxy keeps growing</h3>
+        <p>Race overhauls, planet generation and the holographic star map are taking shape build by build.</p>
+        <a class="more" href="/projects/dragon-block-galactic">About the mod <span class="arr" aria-hidden="true">→</span></a>
+      </article>
+      <article class="card reveal">
+        <p class="kicker">July 2026 · Studio</p>
+        <h3>blockyfy.net is live</h3>
+        <p>A proper home on the web. The supporter program opens once our paperwork clears.</p>
+        <a class="more" href="/projects/dragon-block-galactic#support">See the tiers <span class="arr" aria-hidden="true">→</span></a>
+      </article>
+    </div>
+  </div>
+</section>
 
 <section class="section" id="projects">
   <div class="wrap">
@@ -133,6 +190,7 @@
 </section>
 
 <section class="section alt" id="studio">
+  <span id="about" aria-hidden="true"></span>
   <div class="wrap">
     <header class="section-head reveal">
       <p class="eyebrow">The studio</p>

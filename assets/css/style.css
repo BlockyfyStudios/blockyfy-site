@@ -122,11 +122,12 @@ p { margin: 0 0 1em; }
   line-height: 0.94;
 }
 
+/* Solid accent for display words. Gradient text was retired on purpose:
+   flat ink with a faint glow reads stronger and avoids the generic
+   rainbow-gradient look. */
 .aurora {
-  background: var(--aurora);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--accent);
+  text-shadow: 0 0 40px var(--accent-glow);
 }
 
 .sr-only {
@@ -233,7 +234,7 @@ p { margin: 0 0 1em; }
   bottom: -2px;
   width: 100%;
   height: 1.5px;
-  background: var(--aurora);
+  background: var(--accent);
   border-radius: 2px;
   transform: scaleX(0);
   transform-origin: left;
@@ -643,21 +644,40 @@ p { margin: 0 0 1em; }
 
 /* ---------------------------------------------------------------- sections */
 
-.section { padding: 110px 0; position: relative; }
+.section { padding: 128px 0; position: relative; }
 
-/* Faixas alternadas com costura DIAGONAL entre os topicos (eco do skew dos
-   botoes). O clip-path corta as bordas em angulo e a margem negativa faz a
-   faixa morder a secao vizinha, matando o corte reto de bloco empilhado. */
+/* Faixas alternadas com costura de DEGRAUS DE PIXEL (skyline blocky):
+   os niveis foram colocados a mao, em alturas e larguras irregulares,
+   de proposito. Um serrote uniforme pareceria gerado; isso aqui parece
+   um horizonte de blocos ao longe. A margem negativa faz a faixa morder
+   a secao vizinha. Por cima do fundo, uma camada de line-art fantasma
+   (nuvem, esfera de 4 estrelas, faisca) a ~5% que tira o "cor chapada". */
 .section.alt {
   --seam: clamp(32px, 4.5vw, 72px);
   background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800' fill='none' stroke='%239fb0d8' stroke-opacity='.05' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M118 186c-30-6-34-46-2-54 0-24 34-38 52-20 10-18 40-14 46 6 26-4 40 26 18 40 8 22-18 38-36 26-14 16-40 12-46-6-14 8-34 4-32 8z'/%3E%3Cpath d='M92 210h132M110 226h84'/%3E%3Ccircle cx='980' cy='620' r='54'/%3E%3Cpath d='M968 600l6 13 15 2-11 10 3 15-13-8-13 8 3-15-11-10 15-2z'/%3E%3Cpath d='M614 292l7 12-7 12-7-12zM614 280v48M590 304h48'/%3E%3Cpath d='M64 646q120-62 238-10t262-34'/%3E%3C/svg%3E"),
     linear-gradient(0deg, rgba(148, 163, 204, 0.028) 1px, transparent 1px),
     linear-gradient(90deg, rgba(148, 163, 204, 0.028) 1px, transparent 1px),
     var(--bg-2);
-  background-size: 72px 72px, 72px 72px, auto;
+  background-size: 1200px 800px, 72px 72px, 72px 72px, auto;
   border: 0;
-  clip-path: polygon(0 var(--seam), 100% 0, 100% calc(100% - var(--seam)), 0 100%);
-  padding: calc(96px + var(--seam)) 0 calc(96px + var(--seam));
+  clip-path: polygon(
+    0 calc(var(--seam) * 0.85), 9% calc(var(--seam) * 0.85),
+    9% calc(var(--seam) * 0.45), 22% calc(var(--seam) * 0.45),
+    22% calc(var(--seam) * 0.95), 37% calc(var(--seam) * 0.95),
+    37% calc(var(--seam) * 0.3), 52% calc(var(--seam) * 0.3),
+    52% calc(var(--seam) * 0.7), 68% calc(var(--seam) * 0.7),
+    68% calc(var(--seam) * 0.15), 84% calc(var(--seam) * 0.15),
+    84% calc(var(--seam) * 0.55), 100% calc(var(--seam) * 0.55),
+    100% calc(100% - var(--seam) * 0.4), 88% calc(100% - var(--seam) * 0.4),
+    88% calc(100% - var(--seam) * 0.85), 71% calc(100% - var(--seam) * 0.85),
+    71% calc(100% - var(--seam) * 0.25), 55% calc(100% - var(--seam) * 0.25),
+    55% calc(100% - var(--seam) * 0.65), 38% calc(100% - var(--seam) * 0.65),
+    38% calc(100% - var(--seam) * 0.95), 20% calc(100% - var(--seam) * 0.95),
+    20% calc(100% - var(--seam) * 0.5), 8% calc(100% - var(--seam) * 0.5),
+    8% calc(100% - var(--seam) * 0.8), 0 calc(100% - var(--seam) * 0.8)
+  );
+  padding: calc(100px + var(--seam)) 0 calc(100px + var(--seam));
   margin: calc(var(--seam) * -0.4) 0;
 }
 
@@ -692,15 +712,25 @@ p { margin: 0 0 1em; }
   .grid.cols-2, .grid.cols-3, .grid.cols-4 { grid-template-columns: 1fr; }
 }
 
+/* Cantos entalhados em degrau de pixel (moldura blocky, eco do minecraft.net).
+   O clip-path corta sombras externas, entao o hover fala por borda e fundo. */
 .card {
+  --px: 10px;
   position: relative;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: 0;
+  clip-path: polygon(
+    0 var(--px), var(--px) var(--px), var(--px) 0,
+    calc(100% - var(--px)) 0, calc(100% - var(--px)) var(--px), 100% var(--px),
+    100% calc(100% - var(--px)), calc(100% - var(--px)) calc(100% - var(--px)),
+    calc(100% - var(--px)) 100%, var(--px) 100%,
+    var(--px) calc(100% - var(--px)), 0 calc(100% - var(--px))
+  );
   padding: 30px 28px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  transition: transform 0.25s var(--ease-out), border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  transition: transform 0.25s var(--ease-out), border-color 0.25s ease, background 0.25s ease;
 }
 .card::before {
   content: "";
@@ -717,7 +747,7 @@ p { margin: 0 0 1em; }
   transform: translateY(-4px);
   border-color: var(--accent-deep);
   background: rgba(17, 24, 44, 0.75);
-  box-shadow: var(--shadow-2), 0 0 0 1px var(--accent-glow);
+  box-shadow: inset 0 0 0 1px var(--accent-glow), inset 0 30px 60px -40px var(--accent-glow);
 }
 .card:hover::before { opacity: 1; }
 
@@ -734,7 +764,7 @@ p { margin: 0 0 1em; }
   flex: none;
   display: grid;
   place-items: center;
-  border-radius: 11px;
+  border-radius: 3px;
   background:
     linear-gradient(160deg, rgba(255, 255, 255, 0.08), transparent 55%),
     var(--accent-glow);
@@ -1403,4 +1433,91 @@ p { margin: 0 0 1em; }
   .hero-meta li { padding: 8px 13px; font-size: 0.72rem; }
   .btn-lg { padding: 15px 26px; }
   .footer-inner { gap: 28px; }
+}
+
+/* ------------------------------------------------ fase 1 do redesign */
+
+/* Horizonte blocky na base do hero da home: skyline de blocos ao longe,
+   desenhada retangulo a retangulo. Poucas janelas acesas de proposito. */
+.horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  z-index: 0;
+  pointer-events: none;
+  line-height: 0;
+}
+.horizon svg { width: 100%; height: clamp(70px, 10vw, 150px); display: block; }
+
+/* Na home, o link do DBG na nav carrega a cor do projeto (padrao Supergiant:
+   cada jogo tem seu acento). */
+.nav-links a.proj-dbg { color: var(--gold); }
+.nav-links a.proj-dbg:hover { color: var(--gold-hi); }
+.nav-links a.proj-dbg::after { background: var(--gold); }
+
+/* Cards de news: mesmos cards, sem icone, com data como kicker. */
+.card .more {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: var(--font-head);
+}
+
+/* Bloco "About + Available on" da pagina de projeto (formula Supergiant). */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: start;
+}
+.about-copy h2 {
+  font-family: var(--font-poster);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 0.96;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  margin: 14px 0 22px;
+}
+.about-copy p { color: var(--muted); margin-bottom: 16px; max-width: 56ch; }
+.about-copy .faq-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--font-head);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.about-box {
+  --px: 10px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  clip-path: polygon(
+    0 var(--px), var(--px) var(--px), var(--px) 0,
+    calc(100% - var(--px)) 0, calc(100% - var(--px)) var(--px), 100% var(--px),
+    100% calc(100% - var(--px)), calc(100% - var(--px)) calc(100% - var(--px)),
+    calc(100% - var(--px)) 100%, var(--px) 100%,
+    var(--px) calc(100% - var(--px)), 0 calc(100% - var(--px))
+  );
+  padding: 30px 28px;
+}
+.about-box h3 {
+  font-family: var(--font-poster);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 1.02rem;
+  color: var(--faint);
+  margin-bottom: 16px;
+}
+.about-box h3 + * { margin-bottom: 26px; }
+.about-box .badges { justify-content: flex-start; margin: 0 0 8px; }
+.about-box .note { color: var(--muted); font-size: 0.9rem; margin: 10px 0 26px; }
+.about-box .cta-row { justify-content: flex-start; margin: 0; }
+
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
 }
