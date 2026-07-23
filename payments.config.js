@@ -15,6 +15,33 @@ window.BLOCKYFY_PAYMENTS = {
   provider: "stripe",
 
   projects: {
+    /* Studio-wide membership: one price unlocks the perks of every
+       Blockyfy project, current and future. Rendered on the home page. */
+    "blockyfy": {
+      accent: "green",
+      checkoutOpen: false,
+      note: "One membership for the whole studio. Every current and future project is included.",
+      tiers: [
+        {
+          id: "blockyfy-global",
+          name: "Blockyfy Supporter",
+          price: "$30",
+          period: "/month",
+          tagline: "Back the whole studio, not just one game.",
+          perks: [
+            "Every perk from every Blockyfy project, current and future",
+            "All-access supporter role on Discord",
+            "Early access builds and closed betas across all games",
+            "A vote on every project roadmap",
+            "Highlighted name in the studio credits"
+          ],
+          checkoutUrl: "",
+          featured: true,
+          splash: "All Access!"
+        }
+      ]
+    },
+
     "dragon-block-galactic": {
       accent: "gold",
       /* Pagamentos PAUSADOS enquanto o CNPJ da Blockyfy esta em criacao.

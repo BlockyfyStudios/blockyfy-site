@@ -1521,3 +1521,20 @@ p { margin: 0 0 1em; }
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; gap: 36px; }
 }
+
+/* ---------------------------------------- global supporter (studio tier) */
+
+/* Um card so, premium e centralizado (nao esticado na largura toda). */
+.tiers.tiers-solo {
+  grid-template-columns: minmax(0, 430px);
+  justify-content: center;
+  max-width: none;
+}
+
+.support-alt {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 22px;
+}
+.support-alt a { font-weight: 600; }
