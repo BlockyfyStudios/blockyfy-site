@@ -212,7 +212,12 @@ p { margin: 0; }
 .wordmark svg { width: 22px; height: 22px; display: block; }
 
 .head-nav { display: flex; align-items: center; gap: calc(var(--u) * 3); margin-left: auto; }
-.head-nav a {
+/* O :not(.btn) e o ponto todo: o estilo de LINK do menu nao pode encostar nos botoes.
+   Sem ele, `.head-nav a` (0,1,1) ganhava de `.btn` (0,1,0) e duas coisas quebravam:
+   o texto do botao fantasma herdava a tinta escura do acento e sumia (1.04:1), e o
+   border-bottom transparente do link comia a borda de baixo do fantasma, deixando
+   ele como um "U" aberto. Escopo certo resolve os dois sem override nenhum. */
+.head-nav a:not(.btn) {
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.1em;
@@ -222,11 +227,8 @@ p { margin: 0; }
   padding: 6px 0;
   border-bottom: 1px solid transparent;
 }
-.head-nav a:hover { color: var(--ink); border-bottom-color: var(--accent); }
-/* `.head-nav a` (0,1,1) ganha de `.btn` (0,1,0) e pintava o CTA de cinza sobre o acento.
-   Reafirma a tinta aqui, senao o botao do topo sai sem contraste. */
-.head-nav .btn { padding: 10px 16px; color: var(--accent-ink); border-bottom-color: transparent; }
-.head-nav .btn:hover { color: var(--accent-ink); border-bottom-color: transparent; }
+.head-nav a:not(.btn):hover { color: var(--ink); border-bottom-color: var(--accent); }
+.head-nav .btn { padding: 10px 16px; }
 
 .burger {
   display: none;
@@ -678,7 +680,8 @@ p { margin: 0; }
     padding: calc(var(--u) * 2);
   }
   .head-nav.open { display: flex; }
-  .head-nav a { padding: 12px 8px; border-bottom: 1px solid var(--line); }
+  /* mesmo cuidado do desktop: separador so nos links, nunca nos botoes */
+  .head-nav a:not(.btn) { padding: 12px 8px; border-bottom: 1px solid var(--line); }
   .head-nav .btn { margin-top: var(--u); justify-content: center; }
   .burger { display: block; }
 
