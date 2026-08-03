@@ -1,7 +1,7 @@
 /* Blockyfy — comportamento das paginas "spec sheet" (home, DBG e 404).
    Enxuto de proposito: sem parallax, sem tilt, sem starfield. O peso visual
    vem da estrutura, nao de animacao. Sem dependencias.
-   O main.js antigo so serve o blocky-studio.html.off, que esta desativado. */
+   Unico js de comportamento do site (o main.js antigo foi apagado). */
 (function () {
   "use strict";
 

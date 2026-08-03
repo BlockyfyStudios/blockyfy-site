@@ -9,11 +9,12 @@
      - grid de 8px visivel ao fundo, como papel milimetrado.
      - dado real em monoespacada; retorica em display.
      - icone SEMPRE svg de linha proprio; emoji como icone e proibido.
-   Escopo: index.html, projects/dragon-block-galactic.html e 404.html.
+   Escopo: TODAS as paginas do site (index, dragon-block-galactic, 404).
+   Este e o unico css do site; o style.css antigo foi apagado junto com o
+   main.js e a pagina desativada do Blocky Studio (ficam no historico do
+   git, commit 246c486, se um dia precisar).
    Acento por pagina: o padrao e o verde do estudio; .theme-gold no <body>
    vira a pagina inteira pro dourado sem tocar em componente nenhum.
-   O style.css/main.js antigos so servem projects/blocky-studio.html.off,
-   que esta desativado: se um dia religar, portar antes.
    ========================================================================= */
 
 :root {
