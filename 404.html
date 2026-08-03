@@ -3,41 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lost in space | Blockyfy</title>
+<title>Sector not generated | Blockyfy</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%238ef0c0' d='M12 1.5 22 7l-10 5.5L2 7z'/%3E%3Cpath fill='%232ea36d' d='M2 7v10.5L12 23V12.5z'/%3E%3Cpath fill='%2359d99d' d='M22 7v10.5L12 23V12.5z'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/landing.css">
 <style>
-  .err-hero { min-height: 100svh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
-  .err-hero .stars { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .err { min-height: 82svh; display: flex; align-items: center; }
   .err-code {
-    font-family: var(--font-poster); font-size: clamp(7rem, 24vw, 16rem);
-    line-height: .9; letter-spacing: .04em; margin: 0;
+    font-family: var(--mono);
+    font-size: clamp(72px, 18vw, 190px);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    margin: calc(var(--u) * 2) 0 calc(var(--u) * 3);
+    color: var(--accent);
   }
-  .err-hero .lede { margin: 18px auto 28px; max-width: 480px; }
-  .err-hero .cta-row { justify-content: center; }
+  .err .lede { margin-bottom: calc(var(--u) * 4); }
+  .err-coords { margin-top: calc(var(--u) * 5); }
 </style>
 </head>
 <body>
 
-<div class="noise" aria-hidden="true"></div>
+<div class="paper" aria-hidden="true"></div>
 
-<section class="err-hero">
-  <canvas class="stars" aria-hidden="true"></canvas>
-  <div class="wrap" style="position:relative">
-    <span class="eyebrow">Signal lost</span>
-    <h1 class="err-code display"><span class="aurora">404</span></h1>
-    <p class="lede">This sector of the galaxy has not been generated yet. The page you are looking for does not exist or has moved.</p>
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="wordmark" href="/">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#8ef0c0" d="M12 1.5 22 7l-10 5.5L2 7z"/>
+        <path fill="#2ea36d" d="M2 7v10.5L12 23V12.5z"/>
+        <path fill="#59d99d" d="M22 7v10.5L12 23V12.5z"/>
+      </svg>
+      BLOCKYFY
+    </a>
+  </div>
+</header>
+
+<main class="err">
+  <div class="wrap">
+    <p class="eyebrow">Signal lost</p>
+    <p class="err-code">404</p>
+    <p class="lede">This sector has not been generated yet. The page you are looking for does not exist, or it moved somewhere else in the galaxy.</p>
     <div class="cta-row">
       <a class="btn" href="/">Back to base</a>
       <a class="btn btn-ghost" href="/projects/dragon-block-galactic">Dragon Block Galactic</a>
     </div>
+    <div class="err-coords">
+      <dl class="spec" style="padding: 0; max-width: 420px">
+        <div><dt>Status</dt><dd>404 not found</dd></div>
+        <div><dt>Sector</dt><dd>uncharted</dd></div>
+        <div><dt>Next action</dt><dd>return to base</dd></div>
+      </dl>
+    </div>
   </div>
-</section>
+</main>
 
-<script src="/assets/js/main.js"></script>
+<script src="/assets/js/landing.js"></script>
 </body>
 </html>
