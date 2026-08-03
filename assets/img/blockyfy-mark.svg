@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="3 3 26 26" role="img" aria-label="Blockyfy">
+  <!-- Cubo isometrico 2:1 com o sub-cubo do canto frontal minerado.
+       Toda coordenada sai de cx=16 cy=9 a=12 h=14, b=a/2. Sem degrade, sem glow. -->
+  <polygon fill="#8ef0c0" points="16,3 28,9 22,12 16,9 10,12 4,9"/>
+  <polygon fill="#2ea36d" points="4,9 10,12 10,19 16,22 16,29 4,23"/>
+  <polygon fill="#59d99d" points="28,9 22,12 22,19 16,22 16,29 28,23"/>
+  <polygon fill="#3fa87a" points="16,9 10,12 10,19 16,16"/>
+  <polygon fill="#23795a" points="16,9 22,12 22,19 16,16"/>
+  <polygon fill="#1b6b48" points="16,16 10,19 16,22 22,19"/>
+</svg>
