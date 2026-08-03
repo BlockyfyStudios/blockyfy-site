@@ -55,7 +55,19 @@
 <section class="hero hero-project">
   <div class="wrap">
     <p class="eyebrow">Blockyfy presents</p>
-    <h1 class="hero-logo"><img src="../assets/img/dbg-logo.png" alt="Dragon Block Galactic" fetchpriority="high"></h1>
+    <h1 class="hero-logo">
+      <!-- O logo aparece com no maximo 620px de CSS. A variante de 760w cobre celular em
+           2x (92vw num telefone de 412px pede 758); a de 1241w cobre o desktop em 2x.
+           760 e nao 672: com 672 o navegador achava curto e puxava a grande no celular.
+           O png so existe pra navegador sem webp. -->
+      <picture>
+        <source
+          type="image/webp"
+          srcset="../assets/img/dbg-logo-760.webp 760w, ../assets/img/dbg-logo.webp 1241w"
+          sizes="(max-width: 700px) 92vw, 620px">
+        <img src="../assets/img/dbg-logo.png" alt="Dragon Block Galactic" width="1241" height="640" fetchpriority="high" decoding="async">
+      </picture>
+    </h1>
     <p class="lede">Build a warrior, train ki that the server actually validates, and cross a galaxy generated planet by planet. Hunt the seven Dragon Balls and speak your wish out loud. Characters age, empires claim worlds and the map keeps moving while you are logged off.</p>
     <ul class="chips">
       <li class="on">Free to play</li>
