@@ -1,6 +1,11 @@
 /* =========================================================================
-   BLOCKYFY — design system "SPEC SHEET" (v3)
-   Linguagem: voxel nativo + ficha de engenharia.
+   BLOCKYFY — design system do site (v4)
+   Linguagem: voxel nativo. A ESTRUTURA segue o que sites de jogo de verdade
+   fazem, conferido em Cobblemon (mod de Minecraft), Landfall, Supergiant e
+   Bithell: heroi liderado pela ARTE do jogo, nav de utilidade, uma frase seca
+   de identidade, tiles de jogo com arte + uma frase + links, comunidade no
+   fim. A v3 era um portfolio de design disfarcado de site de jogo: secao
+   numerada com §, ficha tecnica, ledger de engenharia. Isso saiu.
    Regras duras deste arquivo, que sao o que tira a cara de template:
      - border-radius: 0 em TUDO. Nada arredondado, nada de vidro fosco.
      - sombra sem blur (offset solido), como sombra de bloco.
@@ -235,14 +240,86 @@ p { margin: 0; }
 }
 .burger span { display: block; width: 18px; height: 2px; background: currentColor; margin: 3px auto; }
 
-/* ---------------------------------------------------------------- hero */
+/* ---------------------------------------------------------------- hero
+   Site de jogo e liderado por ARTE: o jogo em destaque ocupa a dobra e o CTA e
+   concreto. Foi o padrao que apareceu em todas as referencias reais (Landfall abre
+   com "GET PEAK", Cobblemon com a arte + uma linha, Bithell com o jogo atual). */
 .hero { padding: calc(var(--u) * 9) 0 calc(var(--u) * 7); }
-.hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-  gap: calc(var(--u) * 6);
-  align-items: center;
+
+.hero-game { padding: calc(var(--u) * 7) 0 calc(var(--u) * 8); text-align: center; }
+.hero-art-link { display: block; margin: calc(var(--u) * 4) auto calc(var(--u) * 4); max-width: min(720px, 100%); }
+.hero-art-link img { display: block; width: 100%; height: auto; }
+.hero-line {
+  font-size: clamp(17px, 1.9vw, 22px);
+  color: var(--ink);
+  max-width: 56ch;
+  margin: 0 auto calc(var(--u) * 4);
+  text-wrap: balance;
 }
+.chips-center { justify-content: center; margin-bottom: 0; }
+.cta-center { justify-content: center; }
+.btn-lg { padding: 17px 30px; font-size: 14px; }
+
+/* faixa de novidade: o Cobblemon poe a versao atual em destaque logo abaixo da dobra */
+.strip {
+  display: block;
+  text-decoration: none;
+  border-block: 1px solid var(--line);
+  background: var(--bg-2);
+}
+.strip:hover { background: var(--panel); }
+.strip-inner {
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--u) * 2);
+  padding: calc(var(--u) * 2.5) 0;
+}
+.strip-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background: var(--accent);
+  padding: 4px 10px;
+  flex: none;
+}
+.strip-txt { color: var(--ink-2); flex: 1; }
+.strip-txt strong { color: var(--ink); font-weight: 700; }
+.strip-go { font-family: var(--mono); font-size: 12px; color: var(--accent); flex: none; }
+
+/* frase de identidade: seca e factual, como fazem Supergiant e Bithell */
+.studio-line {
+  font-size: clamp(18px, 2.1vw, 26px);
+  line-height: 1.45;
+  color: var(--ink);
+  max-width: 62ch;
+  text-wrap: balance;
+}
+
+.sec-title { margin-bottom: calc(var(--u) * 4); }
+.sec-sub { color: var(--ink-2); max-width: 64ch; margin-bottom: calc(var(--u) * 4); font-size: 17px; }
+
+/* tiles de jogo: arte + titulo + UMA frase afiada + links. Padrao repetido em
+   Landfall, Supergiant e Bithell. */
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: calc(var(--u) * 4); }
+.tile { clip-path: var(--chamfer); background: var(--panel); box-shadow: var(--shadow); display: flex; flex-direction: column; }
+.tile-art {
+  display: grid;
+  place-items: center;
+  padding: calc(var(--u) * 4);
+  min-height: 210px;
+  border-bottom: 1px solid var(--line);
+}
+.tile-art img, .tile-art svg { width: 100%; height: auto; max-height: 190px; object-fit: contain; }
+.tile-art.gold { background: radial-gradient(120% 140% at 50% 30%, #171205 0%, #0c1119 70%); }
+.tile-art.dark { background: #0a0f18; }
+.tile-art.dark svg { max-width: 200px; }
+.tile-body { padding: calc(var(--u) * 4); display: flex; flex-direction: column; gap: calc(var(--u) * 2); flex: 1; }
+.tile-body h3 { font-size: 22px; text-transform: uppercase; letter-spacing: -0.015em; }
+.tile-body p { color: var(--ink-2); }
+.tile-body .chips { margin-bottom: 0; }
+.tile-body .cta-row { margin-top: auto; padding-top: var(--u); }
 .eyebrow {
   font-family: var(--mono);
   font-size: 12px;
@@ -268,16 +345,6 @@ p { margin: 0; }
 .iso .lit { animation: blink 4s steps(1, end) infinite; }
 @keyframes blink { 0%, 62% { opacity: 1; } 63%, 100% { opacity: 0.25; } }
 @media (prefers-reduced-motion: reduce) { .iso .lit { animation: none; } }
-
-.stamp {
-  margin-top: calc(var(--u) * 2);
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  text-align: center;
-}
 
 /* ---------------------------------------------------------------- faixa de spec */
 .specbar {
@@ -403,55 +470,6 @@ p { margin: 0; }
   user-select: none;
   padding: 0 12px;
 }
-
-/* ---------------------------------------------------------------- ledger */
-.ledger { border-top: 1px solid var(--line); }
-.ledger-row {
-  display: grid;
-  grid-template-columns: 88px minmax(0, 1fr) minmax(0, 1.25fr);
-  gap: calc(var(--u) * 3);
-  padding: calc(var(--u) * 4) 0;
-  border-bottom: 1px solid var(--line);
-  align-items: start;
-}
-.ledger-row .n {
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  color: var(--ink-3);
-  padding-top: 4px;
-}
-.ledger-row h3 { text-transform: uppercase; letter-spacing: -0.01em; }
-.ledger-row p { color: var(--ink-2); }
-.ledger-row code {
-  font-family: var(--mono);
-  font-size: 12.5px;
-  color: var(--accent);
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1px 6px;
-}
-
-/* ---------------------------------------------------------------- log */
-.log { border-top: 1px solid var(--line); }
-.log-row {
-  display: grid;
-  grid-template-columns: 132px minmax(0, 1fr) auto;
-  gap: calc(var(--u) * 3);
-  align-items: baseline;
-  padding: calc(var(--u) * 2.5) 0;
-  border-bottom: 1px solid var(--line);
-  text-decoration: none;
-}
-.log-row:hover { background: var(--bg-2); }
-.log-row time {
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: var(--ink-3);
-}
-.log-row strong { font-weight: 700; }
-.log-row span { color: var(--ink-2); font-size: 15px; }
-.log-row .go { font-family: var(--mono); font-size: 12px; color: var(--accent); }
 
 /* ---------------------------------------------------------------- pagina de projeto */
 .hero-project { padding: calc(var(--u) * 8) 0 calc(var(--u) * 6); }
@@ -639,8 +657,6 @@ p { margin: 0; }
 
 /* ---------------------------------------------------------------- responsivo */
 @media (max-width: 1000px) {
-  .hero-grid { grid-template-columns: 1fr; gap: calc(var(--u) * 5); }
-  .hero-art { order: -1; max-width: 380px; }
   .proj, .band { grid-template-columns: 1fr; }
   .proj-copy { border-right: 0; border-bottom: 1px solid var(--line); }
   .specbar ul { grid-template-columns: repeat(3, 1fr); }
@@ -670,9 +686,6 @@ p { margin: 0; }
   .sec-head { flex-wrap: wrap; }
   .sec-head .note { flex-basis: 100%; text-align: left; }
   .proj-copy, .spec, .tier, .band { padding: calc(var(--u) * 3); }
-  .ledger-row { grid-template-columns: 1fr; gap: var(--u); }
-  .log-row { grid-template-columns: 1fr; gap: 4px; }
-  .log-row .go { display: none; }
   .specbar ul { grid-template-columns: repeat(2, 1fr); }
   .specbar li:nth-child(odd) { border-left: 0; }
   .specbar li:nth-child(n + 3) { border-top: 1px solid var(--line); }
