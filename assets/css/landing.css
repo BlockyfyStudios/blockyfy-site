@@ -679,6 +679,13 @@ p { margin: 0; }
     border-bottom: 1px solid var(--line);
     padding: calc(var(--u) * 2);
   }
+  /* strip: em linha unica o texto ficava numa coluna de ~170px entre a tag e o "More",
+     esticando a faixa pra ~220px de altura. Quebra: tag + More na primeira linha,
+     texto inteiro na segunda. */
+  .strip-inner { flex-wrap: wrap; align-items: center; }
+  .strip-txt { flex-basis: 100%; order: 3; }
+  .strip-go { margin-left: auto; }
+
   .head-nav.open { display: flex; }
   /* mesmo cuidado do desktop: separador so nos links, nunca nos botoes */
   .head-nav a:not(.btn) { padding: 12px 8px; border-bottom: 1px solid var(--line); }
