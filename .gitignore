@@ -1,1 +1,5 @@
 README.md
+
+# saida descartavel de comparacao de qualidade de imagem
+*.webp.q*
+*.webp.ll
