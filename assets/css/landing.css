@@ -73,7 +73,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
@@ -649,12 +649,12 @@ p { margin: 0; }
 }
 
 /* ---------------------------------------------------------------- reveal
-   A entrada SO esconde quando ha JS pra revelar (classe .js posta inline no
-   <head>). Sem isso, um erro de script deixaria a pagina inteira invisivel. */
-.js .rise { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
-.js .rise.in { opacity: 1; transform: none; }
+   So esconde depois que o observer foi instalado. Sem JS, ou se o script
+   falhar antes de inicializar, todo o conteudo continua visivel. */
+.reveal-ready .rise { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal-ready .rise.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  .js .rise { opacity: 1; transform: none; transition: none; }
+  .reveal-ready .rise { opacity: 1; transform: none; transition: none; }
 }
 
 /* ---------------------------------------------------------------- responsivo */
@@ -669,7 +669,6 @@ p { margin: 0; }
 
 @media (max-width: 760px) {
   .head-nav {
-    display: none;
     position: absolute;
     top: 64px; left: 0; right: 0;
     flex-direction: column;
@@ -686,11 +685,12 @@ p { margin: 0; }
   .strip-txt { flex-basis: 100%; order: 3; }
   .strip-go { margin-left: auto; }
 
-  .head-nav.open { display: flex; }
+  .nav-ready .head-nav { display: none; }
+  .nav-ready .head-nav.open { display: flex; }
   /* mesmo cuidado do desktop: separador so nos links, nunca nos botoes */
   .head-nav a:not(.btn) { padding: 12px 8px; border-bottom: 1px solid var(--line); }
   .head-nav .btn { margin-top: var(--u); justify-content: center; }
-  .burger { display: block; }
+  .nav-ready .burger { display: block; }
 
   .section { padding: calc(var(--u) * 8) 0; }
   .sec-head { flex-wrap: wrap; }

@@ -1,10 +1,8 @@
 /* Blockyfy site - renders supporter tiers from payments.config.js.
    A container declares which project it wants:
      <div class="tiers" data-tiers="dragon-block-galactic"></div>
-   Tiers with a checkoutUrl become live "Subscribe" links (Stripe Payment
-   Links). Tiers without one render a disabled "Opening soon" button.
-   A project with checkoutOpen: false renders every tier as disabled,
-   keeping the URLs in the config for when payments reopen. */
+   Only a project with checkoutOpen: true and an HTTPS buy.stripe.com URL
+   renders a live "Subscribe" link. Every other state fails closed. */
 (function () {
   "use strict";
 
@@ -18,9 +16,24 @@
     return node;
   }
 
+  function stripeCheckoutUrl(project, tier) {
+    if (project.checkoutOpen !== true || !tier.checkoutUrl) return "";
+
+    try {
+      var url = new URL(tier.checkoutUrl);
+      if (url.protocol !== "https:" || url.hostname !== "buy.stripe.com") return "";
+      if (url.username || url.password || url.port) return "";
+      return url.href;
+    } catch (error) {
+      return "";
+    }
+  }
+
   document.querySelectorAll("[data-tiers]").forEach(function (mount) {
     var project = cfg.projects[mount.getAttribute("data-tiers")];
     if (!project) return;
+
+    var hasOpenCheckout = false;
 
     project.tiers.forEach(function (tier) {
       var card = el("article", "tier" + (tier.featured ? " featured" : ""));
@@ -41,9 +54,11 @@
       });
       card.appendChild(list);
 
-      if (project.checkoutOpen !== false && tier.checkoutUrl) {
+      var checkoutUrl = stripeCheckoutUrl(project, tier);
+      if (checkoutUrl) {
+        hasOpenCheckout = true;
         var link = el("a", "btn", "Subscribe");
-        link.href = tier.checkoutUrl;
+        link.href = checkoutUrl;
         link.target = "_blank";
         link.rel = "noopener";
         card.appendChild(link);
@@ -58,9 +73,11 @@
     });
 
     var note = mount.parentElement && mount.parentElement.querySelector(".tiers-note");
-    if (note && project.note) {
-      var msg = el("span", null, project.note + " ");
-      note.insertBefore(msg, note.firstChild);
+    if (note) {
+      var status = hasOpenCheckout
+        ? "Secure checkout by Stripe. Cancel anytime from the customer portal."
+        : "Subscriptions are not open yet.";
+      note.textContent = (project.note ? project.note + " " : "") + status;
     }
   });
 })();

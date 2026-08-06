@@ -21,6 +21,7 @@
         burger.setAttribute("aria-expanded", "false");
       }
     });
+    document.documentElement.classList.add("nav-ready");
   }
 
   /* ------------------------------------------------ entrada por scroll */
@@ -34,6 +35,7 @@
       });
     }, { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
     rise.forEach(function (el) { io.observe(el); });
+    document.documentElement.classList.add("reveal-ready");
   } else {
     rise.forEach(function (el) { el.classList.add("in"); });
   }

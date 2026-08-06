@@ -22,7 +22,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/landing.css">
-<script>document.documentElement.className += " js";</script>
 </head>
 <body>
 
@@ -54,6 +53,8 @@
 </header>
 
 <main>
+
+<h1 class="sr-only">Blockyfy | Independent Game Studio</h1>
 
 <!-- Heroi liderado pela ARTE, do jeito que site de jogo faz: o jogo em destaque
      ocupa a dobra, com um CTA concreto. Nada de manifesto tipografico. -->
@@ -169,8 +170,18 @@
     <h2 class="display sec-title">Support the studio</h2>
     <p class="sec-sub">Everything we release is free to play. One membership backs the whole studio: early builds, closed betas, and your name in the credits of every project we ever ship. Nothing you pay for touches game balance.</p>
 
-    <div class="tiers tiers-solo rise" data-tiers="blockyfy"></div>
-    <p class="tiers-note">Secure checkout by Stripe. Cancel anytime from the customer portal.</p>
+    <div class="tiers tiers-solo rise" data-tiers="blockyfy" aria-label="Blockyfy membership plans"></div>
+    <noscript>
+      <div class="tiers tiers-solo" aria-label="Blockyfy membership plans">
+        <article class="tier featured">
+          <span class="splash">All Access!</span>
+          <h3>Blockyfy Supporter</h3>
+          <div class="price">$30<small>/month</small></div>
+          <button class="btn soon" type="button" disabled>Opening soon</button>
+        </article>
+      </div>
+    </noscript>
+    <p class="tiers-note">One membership for the whole studio. Every current and future project is included. Perks are delivered on Discord, so a Discord account is required. Subscriptions are not open yet.</p>
     <p class="support-alt">Just want to back the mod? <a href="/projects/dragon-block-galactic#support">Dragon Block Galactic has its own tiers</a>.</p>
   </div>
 </section>

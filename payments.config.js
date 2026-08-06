@@ -1,14 +1,22 @@
 /* =========================================================================
    BLOCKYFY - CONFIGURACAO DE PAGAMENTOS
    =========================================================================
-   Este arquivo e a UNICA fonte de verdade dos planos de assinatura.
-   As paginas dos projetos leem daqui e montam os cards sozinhas.
+   Este arquivo e a fonte dos cards interativos dos planos de assinatura.
+   Os fallbacks <noscript> espelham nome/preco/estado, e os testes impedem
+   que eles saiam de sincronia com esta configuracao.
 
    COMO ATIVAR OS PAGAMENTOS (Stripe):
-   1. Crie os produtos/precos no Stripe Dashboard (veja o README.md).
+   1. Crie os produtos/precos no Stripe Dashboard.
    2. Gere um Payment Link para cada tier.
    3. Cole a URL no campo "checkoutUrl" do tier correspondente.
+   4. Troque "checkoutOpen" pra true.
    Enquanto checkoutUrl estiver vazio, o botao aparece como "Em breve".
+
+   ESTADO EM 2026-08-06: checkoutOpen continua FALSE e os links ficam fora
+   desta configuracao publica. O worker que concede os cargos (repo
+   blockyfy-gate) ja esta publicado, e o endpoint Stripe ouve os cinco eventos
+   esperados. Cole as URLs e ligue checkoutOpen somente depois de um teste
+   controlado do fluxo completo passar.
    ========================================================================= */
 
 window.BLOCKYFY_PAYMENTS = {
@@ -20,7 +28,7 @@ window.BLOCKYFY_PAYMENTS = {
     "blockyfy": {
       accent: "green",
       checkoutOpen: false,
-      note: "One membership for the whole studio. Every current and future project is included.",
+      note: "One membership for the whole studio. Every current and future project is included. Perks are delivered on Discord, so a Discord account is required.",
       tiers: [
         {
           id: "blockyfy-global",
@@ -44,11 +52,10 @@ window.BLOCKYFY_PAYMENTS = {
 
     "dragon-block-galactic": {
       accent: "gold",
-      /* Pagamentos PAUSADOS enquanto o CNPJ da Blockyfy esta em criacao.
-         Pra reabrir: troque checkoutOpen pra true e cole as URLs dos
-         Payment Links nos campos checkoutUrl (guardadas fora do repo). */
+      /* URLs ficam vazias enquanto o checkout estiver fechado. Ver a nota
+         no topo do arquivo antes de reabrir. */
       checkoutOpen: false,
-      note: "The mod is free and will remain free. Supporting funds development and unlocks perks.",
+      note: "The mod is free and will remain free. Supporting funds development and unlocks perks. Perks are delivered on Discord, so a Discord account is required.",
       tiers: [
         {
           id: "warrior",
@@ -98,6 +105,7 @@ window.BLOCKYFY_PAYMENTS = {
 
     "blocky-studio": {
       accent: "green",
+      checkoutOpen: false,
       note: "Supporting funds development and gets you builds ahead of everyone else.",
       tiers: [
         {

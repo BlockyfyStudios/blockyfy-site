@@ -21,7 +21,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/landing.css">
-<script>document.documentElement.className += " js";</script>
 </head>
 <body class="theme-gold">
 
@@ -198,8 +197,28 @@
 
     <p class="lede rise" style="margin-bottom: 32px">Dragon Block Galactic is free and will remain free. Supporters fund development and get closer to the project as it grows: early builds, closed betas and a voice on the roadmap. No perk ever changes the balance of the game.</p>
 
-    <div class="tiers rise" data-tiers="dragon-block-galactic"></div>
-    <p class="tiers-note">Secure checkout by Stripe. Cancel anytime from the customer portal.</p>
+    <div class="tiers rise" data-tiers="dragon-block-galactic" aria-label="Dragon Block Galactic supporter plans"></div>
+    <noscript>
+      <div class="tiers" aria-label="Dragon Block Galactic supporter plans">
+        <article class="tier">
+          <h3>Warrior</h3>
+          <div class="price">$4<small>/month</small></div>
+          <button class="btn soon" type="button" disabled>Opening soon</button>
+        </article>
+        <article class="tier featured">
+          <span class="splash">Early Access!</span>
+          <h3>Super Warrior</h3>
+          <div class="price">$12<small>/month</small></div>
+          <button class="btn soon" type="button" disabled>Opening soon</button>
+        </article>
+        <article class="tier">
+          <h3>Legendary</h3>
+          <div class="price">$20<small>/month</small></div>
+          <button class="btn soon" type="button" disabled>Opening soon</button>
+        </article>
+      </div>
+    </noscript>
+    <p class="tiers-note">The mod is free and will remain free. Supporting funds development and unlocks perks. Perks are delivered on Discord, so a Discord account is required. Subscriptions are not open yet.</p>
     <p class="support-alt">Play more than one Blockyfy game? Become a <a href="/#support">global Blockyfy Supporter</a> and get the perks of every project at once.</p>
   </div>
 </section>
