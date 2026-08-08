@@ -185,6 +185,29 @@ test("pages retain plan information and navigation without JavaScript", () => {
   assert.match(projectPage, /Subscriptions are not open yet\./);
 });
 
+test("customer portal is public, consistent and restricted to Stripe Billing", () => {
+  const pages = [read("index.html"), read("projects/dragon-block-galactic.html")];
+  const portalUrls = [];
+
+  for (const page of pages) {
+    const links = [...page.matchAll(/<a\s+([^>]*href="([^"]+)"[^>]*)>/g)]
+      .filter((match) => match[2].includes("billing.stripe.com"));
+    assert.ok(links.length >= 1, "each sales page must expose the customer portal without JavaScript");
+
+    for (const [, attributes, href] of links) {
+      const url = new URL(href);
+      assert.equal(url.protocol, "https:");
+      assert.equal(url.hostname, "billing.stripe.com");
+      assert.match(url.pathname, /^\/p\/login\/[A-Za-z0-9]+$/);
+      assert.match(attributes, /target="_blank"/);
+      assert.match(attributes, /rel="noopener noreferrer"/);
+      portalUrls.push(url.href);
+    }
+  }
+
+  assert.equal(new Set(portalUrls).size, 1, "all portal links must use the same Stripe configuration");
+});
+
 test("progressive enhancement classes cannot hide content before initialization", () => {
   const css = read("assets/css/landing.css");
   const javascript = read("assets/js/landing.js");
