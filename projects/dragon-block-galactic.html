@@ -195,30 +195,32 @@
       <p class="note">The mod stays free either way</p>
     </header>
 
-    <p class="lede rise" style="margin-bottom: 32px">Dragon Block Galactic is free and will remain free. Supporters fund development and get closer to the project as it grows: early builds, closed betas and a voice on the roadmap. No perk ever changes the balance of the game.</p>
+    <p class="lede rise" style="margin-bottom: 32px">Dragon Block Galactic is free and will remain free. Supporters fund development and receive only the benefits listed for their selected plan. Some plans include early builds, closed beta invitations or roadmap voting. No perk ever changes the balance of the game.</p>
 
     <div class="tiers rise" data-tiers="dragon-block-galactic" aria-label="Dragon Block Galactic supporter plans"></div>
     <noscript>
       <div class="tiers" aria-label="Dragon Block Galactic supporter plans">
-        <article class="tier">
+        <article class="tier" data-tier-id="warrior">
           <h3>Warrior</h3>
-          <div class="price">$4<small>/month</small></div>
-          <button class="btn soon" type="button" disabled>Opening soon</button>
+          <div class="price">USD $4<small>/month</small></div>
+          <button class="btn soon" type="button" data-checkout-state="closed" disabled>Opening soon</button>
         </article>
-        <article class="tier featured">
+        <article class="tier featured" data-tier-id="super-warrior">
           <span class="splash">Early Access!</span>
           <h3>Super Warrior</h3>
-          <div class="price">$12<small>/month</small></div>
-          <button class="btn soon" type="button" disabled>Opening soon</button>
+          <div class="price">USD $12<small>/month</small></div>
+          <button class="btn soon" type="button" data-checkout-state="closed" disabled>Opening soon</button>
         </article>
-        <article class="tier">
+        <article class="tier" data-tier-id="legendary">
           <h3>Legendary</h3>
-          <div class="price">$20<small>/month</small></div>
-          <button class="btn soon" type="button" disabled>Opening soon</button>
+          <div class="price">USD $20<small>/month</small></div>
+          <button class="btn soon" type="button" data-checkout-state="closed" disabled>Opening soon</button>
         </article>
       </div>
     </noscript>
-    <p class="tiers-note">The mod is free and will remain free. Supporting funds development and unlocks perks. Perks are delivered on Discord, so a Discord account is required. Subscriptions are not open yet.</p>
+    <p class="tiers-note">The mod is free and will remain free. Supporting funds development and unlocks only the perks listed for the selected plan. Discord perks require joining our server and completing one-time verification. Subscriptions are not open yet.</p>
+    <p class="fulfillment-note">To receive Discord perks, join the <a href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Blockyfy server</a>, use your actual Discord username (not your display name), allow direct messages from server members, and open the one-time verification link sent by the bot. Build and beta access is provided only when the selected plan explicitly includes it and a build or test is available.</p>
+    <p class="purchase-links">Prices are recurring monthly charges in USD. Before subscribing, read our <a href="/legal/terms">Membership terms</a>, <a href="/legal/refunds">Refund policy</a>, <a href="/legal/fulfillment">Fulfillment and cancellation policy</a>, and <a href="/legal/privacy">Privacy policy</a>.</p>
     <p class="support-alt">Play more than one Blockyfy game? Become a <a href="/#support">global Blockyfy Supporter</a> and get the perks of every project at once.</p>
   </div>
 </section>
@@ -234,15 +236,15 @@
     <div class="faq rise">
       <details>
         <summary>When does the mod release?</summary>
-        <p>When it is ready. We do not announce dates, because we only ship systems that hold up in real play. Supporters follow progress from the inside and try builds first.</p>
+        <p>When it is ready. We do not announce dates, because we only ship systems that hold up in real play. Supporters can follow development from the inside; trying builds before public release is limited to plans that explicitly include early access.</p>
       </details>
       <details>
         <summary>Is the mod paid?</summary>
-        <p>No. The public version is free to download and play, always. Supporting funds development and unlocks perks like early access builds and closed betas.</p>
+        <p>No. The public version is free to download and play, always. Supporting funds development. Early builds or closed beta invitations are included only when they are explicitly listed in the selected plan and a build or test is available.</p>
       </details>
       <details>
         <summary>How do I receive my supporter perks?</summary>
-        <p>You enter your Minecraft nick and your Discord username during checkout. Your supporter role on Discord and your beta access are granted automatically, and dev logs and early builds are delivered through the community server.</p>
+        <p>First join the Blockyfy Discord server. At checkout, enter your actual Discord username, not your display name. The Minecraft username field is optional; provide it if you want it associated with an applicable test build. Allow direct messages from server members, then open the one-time verification link sent by the Blockyfy bot. Your Discord role is granted after payment and verification are confirmed. Dev logs, builds and beta invitations are delivered through the community server only when included in your selected plan.</p>
       </details>
       <details>
         <summary>Can I cancel anytime?</summary>
@@ -293,8 +295,16 @@
       <a href="https://billing.stripe.com/p/login/aFacN5bDsfu60Wv0Da53O00" target="_blank" rel="noopener noreferrer">Manage subscription</a>
       <a href="mailto:contact@blockyfy.net">Contact</a>
     </div>
+    <div class="foot-col">
+      <strong>Legal</strong>
+      <a href="/legal/terms">Terms</a>
+      <a href="/legal/privacy">Privacy</a>
+      <a href="/legal/refunds">Refunds</a>
+      <a href="/legal/fulfillment">Fulfillment &amp; cancellation</a>
+    </div>
     <div class="fine">
       <span>&copy; <span data-year>2026</span> Blockyfy. All rights reserved.</span>
+      <span>Service provider: Blockyfy, independent game studio. Contact: <a href="mailto:contact@blockyfy.net">contact@blockyfy.net</a>.</span>
       <span>Payments processed securely by Stripe.</span>
       <span>Dragon Block Galactic is a free fan project. Not affiliated with Mojang, Microsoft, Toei Animation or Shueisha.</span>
     </div>

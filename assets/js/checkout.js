@@ -1,8 +1,9 @@
 /* Blockyfy site - renders supporter tiers from payments.config.js.
    A container declares which project it wants:
      <div class="tiers" data-tiers="dragon-block-galactic"></div>
-   Only a project with checkoutOpen: true and an HTTPS buy.stripe.com URL
-   renders a live "Subscribe" link. Every other state fails closed. */
+   Only a commercially ready configuration, a project with checkoutOpen: true
+   and an HTTPS buy.stripe.com URL renders a live "Subscribe" link. Every
+   other state fails closed. */
 (function () {
   "use strict";
 
@@ -16,7 +17,15 @@
     return node;
   }
 
-  function stripeCheckoutUrl(project, tier) {
+  function commercialReady(config) {
+    var readiness = config.commercialReadiness;
+    return !!readiness &&
+      readiness.providerIdentityComplete === true &&
+      readiness.refundPolicyApproved === true;
+  }
+
+  function stripeCheckoutUrl(config, project, tier) {
+    if (!commercialReady(config)) return "";
     if (project.checkoutOpen !== true || !tier.checkoutUrl) return "";
 
     try {
@@ -54,7 +63,7 @@
       });
       card.appendChild(list);
 
-      var checkoutUrl = stripeCheckoutUrl(project, tier);
+      var checkoutUrl = stripeCheckoutUrl(cfg, project, tier);
       if (checkoutUrl) {
         hasOpenCheckout = true;
         var link = el("a", "btn", "Subscribe");

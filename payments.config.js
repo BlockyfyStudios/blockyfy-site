@@ -6,11 +6,16 @@
    que eles saiam de sincronia com esta configuracao.
 
    COMO ATIVAR OS PAGAMENTOS (Stripe):
-   1. Crie os produtos/precos no Stripe Dashboard.
-   2. Gere um Payment Link para cada tier.
-   3. Cole a URL no campo "checkoutUrl" do tier correspondente.
-   4. Troque "checkoutOpen" pra true.
-   Enquanto checkoutUrl estiver vazio, o botao aparece como "Em breve".
+   1. Confirme produtos, precos recorrentes em USD e campos do checkout.
+   2. Confirme que o nome comercial Blockyfy, contact@blockyfy.net e a politica
+      de reembolso aprovada continuam publicados.
+   3. Cole cada Payment Link no "checkoutUrl" correspondente.
+   4. Atualize os fallbacks <noscript> das paginas de venda: troque cada
+      botao "Opening soon" por um link "Subscribe" para a mesma URL.
+   5. Atualize o texto estatico de status para "Secure checkout by Stripe".
+   6. Troque "checkoutOpen" para true e rode `npm test`.
+   O teste valida os dois estados e falha se config, fallback ou texto de
+   status divergirem. Enquanto checkoutOpen for false, as URLs ficam vazias.
 
    ESTADO EM 2026-08-06: checkoutOpen continua FALSE e os links ficam fora
    desta configuracao publica. O worker que concede os cargos (repo
@@ -22,18 +27,27 @@
 window.BLOCKYFY_PAYMENTS = {
   provider: "stripe",
 
+  /* Trava comercial independente do flag de cada projeto. A identificacao
+     publica minima usa o nome comercial Blockyfy e contact@blockyfy.net. Mesmo
+     com URL valida e checkoutOpen=true, checkout.js nao publica o link enquanto
+     a politica de reembolso nao tiver aprovacao explicita. */
+  commercialReadiness: {
+    providerIdentityComplete: true,
+    refundPolicyApproved: true
+  },
+
   projects: {
     /* Studio-wide membership: one price unlocks the perks of every
        Blockyfy project, current and future. Rendered on the home page. */
     "blockyfy": {
       accent: "green",
       checkoutOpen: false,
-      note: "One membership for the whole studio. Every current and future project is included. Perks are delivered on Discord, so a Discord account is required.",
+      note: "One membership for the whole studio. Every current and future project is included. Discord perks require joining our server and completing one-time verification.",
       tiers: [
         {
           id: "blockyfy-global",
           name: "Blockyfy Supporter",
-          price: "$30",
+          price: "USD $30",
           period: "/month",
           tagline: "Back the whole studio, not just one game.",
           perks: [
@@ -55,12 +69,12 @@ window.BLOCKYFY_PAYMENTS = {
       /* URLs ficam vazias enquanto o checkout estiver fechado. Ver a nota
          no topo do arquivo antes de reabrir. */
       checkoutOpen: false,
-      note: "The mod is free and will remain free. Supporting funds development and unlocks perks. Perks are delivered on Discord, so a Discord account is required.",
+      note: "The mod is free and will remain free. Supporting funds development and unlocks only the perks listed for the selected plan. Discord perks require joining our server and completing one-time verification.",
       tiers: [
         {
           id: "warrior",
           name: "Warrior",
-          price: "$4",
+          price: "USD $4",
           period: "/month",
           tagline: "Stand with the project.",
           perks: [
@@ -74,7 +88,7 @@ window.BLOCKYFY_PAYMENTS = {
         {
           id: "super-warrior",
           name: "Super Warrior",
-          price: "$12",
+          price: "USD $12",
           period: "/month",
           tagline: "Fight on the front line.",
           perks: [
@@ -89,7 +103,7 @@ window.BLOCKYFY_PAYMENTS = {
         {
           id: "legendary",
           name: "Legendary",
-          price: "$20",
+          price: "USD $20",
           period: "/month",
           tagline: "Legends fund legends.",
           perks: [
@@ -106,12 +120,12 @@ window.BLOCKYFY_PAYMENTS = {
     "blocky-studio": {
       accent: "green",
       checkoutOpen: false,
-      note: "Supporting funds development and gets you builds ahead of everyone else.",
+      note: "Supporting funds development. Selected plans include early builds only when that benefit is listed.",
       tiers: [
         {
           id: "builder",
           name: "Builder",
-          price: "$4",
+          price: "USD $4",
           period: "/month",
           tagline: "Help us build the builder.",
           perks: [
@@ -125,7 +139,7 @@ window.BLOCKYFY_PAYMENTS = {
         {
           id: "architect",
           name: "Architect",
-          price: "$9",
+          price: "USD $9",
           period: "/month",
           tagline: "Shape the tool you build with.",
           perks: [

@@ -58,7 +58,10 @@ function descendantsByTag(element, tagName) {
   return matches;
 }
 
-function renderProject(project) {
+function renderProject(project, commercialReadiness = {
+  providerIdentityComplete: true,
+  refundPolicyApproved: true
+}) {
   const mount = new FakeElement("div");
   mount.attributes["data-tiers"] = "test-project";
   const note = new FakeElement("p");
@@ -74,7 +77,10 @@ function renderProject(project) {
     document,
     URL,
     window: {
-      BLOCKYFY_PAYMENTS: { projects: { "test-project": project } }
+      BLOCKYFY_PAYMENTS: {
+        commercialReadiness,
+        projects: { "test-project": project }
+      }
     }
   };
 
@@ -91,7 +97,7 @@ function project(overrides = {}) {
     tiers: [{
       id: "supporter",
       name: "Supporter",
-      price: "$10",
+      price: "USD $10",
       period: "/month",
       perks: ["One perk"],
       checkoutUrl: "https://buy.stripe.com/example"
@@ -100,14 +106,43 @@ function project(overrides = {}) {
   };
 }
 
-test("payment configuration is explicitly closed and publishes no checkout URLs", () => {
+function validStripeCheckoutUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" &&
+      url.hostname === "buy.stripe.com" &&
+      !url.username && !url.password && !url.port;
+  } catch {
+    return false;
+  }
+}
+
+test("payment configuration supports closed and open states without weakening fail-closed behavior", () => {
   const config = loadPaymentsConfig();
+  assert.equal(typeof config.commercialReadiness.providerIdentityComplete, "boolean");
+  assert.equal(typeof config.commercialReadiness.refundPolicyApproved, "boolean");
+
   for (const [projectId, configuredProject] of Object.entries(config.projects)) {
-    assert.equal(configuredProject.checkoutOpen, false, `${projectId} must fail closed`);
+    assert.equal(typeof configuredProject.checkoutOpen, "boolean", `${projectId} needs an explicit state`);
     for (const tier of configuredProject.tiers) {
-      assert.equal(tier.checkoutUrl, "", `${projectId}/${tier.id} must not publish a closed URL`);
+      assert.match(tier.price, /^USD \$\d+$/, `${projectId}/${tier.id} must name USD explicitly`);
+      if (configuredProject.checkoutOpen) {
+        assert.ok(validStripeCheckoutUrl(tier.checkoutUrl), `${projectId}/${tier.id} needs a valid Stripe URL when open`);
+      } else {
+        assert.equal(tier.checkoutUrl, "", `${projectId}/${tier.id} must not publish a closed URL`);
+      }
     }
   }
+  const commerciallyReady = config.commercialReadiness.providerIdentityComplete === true &&
+    config.commercialReadiness.refundPolicyApproved === true;
+  if (!commerciallyReady) {
+    for (const [projectId, configuredProject] of Object.entries(config.projects)) {
+      assert.equal(configuredProject.checkoutOpen, false, `${projectId} cannot open before commercial readiness`);
+      for (const tier of configuredProject.tiers) assert.equal(tier.checkoutUrl, "", `${projectId}/${tier.id} cannot expose a URL before commercial readiness`);
+    }
+  }
+  assert.equal(config.projects["blocky-studio"].checkoutOpen, false, "unreleased Blocky Studio must stay closed");
+  for (const tier of config.projects["blocky-studio"].tiers) assert.equal(tier.checkoutUrl, "");
   assert.doesNotMatch(read("payments.config.js"), /README\.md/);
 });
 
@@ -141,6 +176,26 @@ test("checkout renders only for explicit true and an exact Stripe HTTPS host", (
   assert.equal(links[0].rel, "noopener");
 });
 
+test("commercial readiness blocks checkout even when a project and URL are open", () => {
+  const openProject = project({ checkoutOpen: true });
+  for (const readiness of [
+    null,
+    {},
+    { providerIdentityComplete: true, refundPolicyApproved: false },
+    { providerIdentityComplete: false, refundPolicyApproved: true }
+  ]) {
+    const { mount } = renderProject(openProject, readiness);
+    assert.equal(descendantsByTag(mount, "a").length, 0);
+    assert.equal(descendantsByTag(mount, "button").length, 1);
+  }
+
+  const ready = renderProject(openProject, {
+    providerIdentityComplete: true,
+    refundPolicyApproved: true
+  });
+  assert.equal(descendantsByTag(ready.mount, "a").length, 1);
+});
+
 test("checkout note reflects the effective open or closed state", () => {
   const closed = renderProject(project());
   assert.equal(closed.note.textContent, "Project note. Subscriptions are not open yet.");
@@ -171,7 +226,18 @@ test("pages retain plan information and navigation without JavaScript", () => {
     assert.ok(homeFallback[1].includes(tier.name), tier.name);
     assert.ok(homeFallback[1].includes(tier.price), tier.price);
   }
-  assert.match(homeFallback[1], /Opening soon/);
+  const commerciallyReady = config.commercialReadiness.providerIdentityComplete === true &&
+    config.commercialReadiness.refundPolicyApproved === true;
+  const homeOpen = commerciallyReady && config.projects.blockyfy.checkoutOpen;
+  if (homeOpen) {
+    assert.doesNotMatch(homeFallback[1], /Opening soon/);
+    for (const tier of config.projects.blockyfy.tiers) assert.ok(homeFallback[1].includes(`href="${tier.checkoutUrl}"`));
+    assert.match(home, /Secure checkout by Stripe/);
+  } else {
+    assert.equal((homeFallback[1].match(/data-checkout-state="closed"/g) || []).length, config.projects.blockyfy.tiers.length);
+    assert.doesNotMatch(homeFallback[1], /href="https:\/\/buy\.stripe\.com/);
+    assert.match(home, /Subscriptions are not open yet\./);
+  }
 
   const projectFallback = projectPage.match(/<noscript>([\s\S]*?)<\/noscript>/);
   assert.ok(projectFallback);
@@ -179,10 +245,65 @@ test("pages retain plan information and navigation without JavaScript", () => {
     assert.ok(projectFallback[1].includes(tier.name), tier.name);
     assert.ok(projectFallback[1].includes(tier.price), tier.price);
   }
-  assert.match(projectFallback[1], /Opening soon/);
+  const projectOpen = commerciallyReady && config.projects["dragon-block-galactic"].checkoutOpen;
+  if (projectOpen) {
+    assert.doesNotMatch(projectFallback[1], /Opening soon/);
+    for (const tier of config.projects["dragon-block-galactic"].tiers) assert.ok(projectFallback[1].includes(`href="${tier.checkoutUrl}"`));
+    assert.match(projectPage, /Secure checkout by Stripe/);
+  } else {
+    assert.equal((projectFallback[1].match(/data-checkout-state="closed"/g) || []).length, config.projects["dragon-block-galactic"].tiers.length);
+    assert.doesNotMatch(projectFallback[1], /href="https:\/\/buy\.stripe\.com/);
+    assert.match(projectPage, /Subscriptions are not open yet\./);
+  }
+});
 
-  assert.match(home, /Subscriptions are not open yet\./);
-  assert.match(projectPage, /Subscriptions are not open yet\./);
+test("sales pages disclose currency, fulfillment steps and every commercial policy", () => {
+  const pages = [read("index.html"), read("projects/dragon-block-galactic.html")];
+  for (const page of pages) {
+    assert.match(page, /recurring monthly charges in USD/);
+    assert.match(page, /actual Discord username \(not your display name\)/);
+    assert.match(page, /allow direct messages from server members/);
+    assert.match(page, /one-time verification link/);
+    for (const policy of ["terms", "privacy", "refunds", "fulfillment"]) {
+      assert.match(page, new RegExp(`href="/legal/${policy}"`));
+    }
+  }
+  assert.match(pages[0], /Every public release is free to play/);
+  assert.doesNotMatch(pages[0], /Everything we release is free to play/);
+  const projectPage = pages[1];
+  assert.doesNotMatch(projectPage, /granted automatically/i);
+  assert.doesNotMatch(projectPage, /Supporters follow progress from the inside and try builds first/i);
+  assert.match(projectPage, /trying builds before public release is limited to plans that explicitly include early access/i);
+  assert.match(projectPage, /Minecraft username field is optional/);
+
+  const config = loadPaymentsConfig();
+  const warrior = config.projects["dragon-block-galactic"].tiers.find((tier) => tier.id === "warrior");
+  assert.ok(warrior);
+  assert.doesNotMatch(warrior.perks.join(" "), /beta|early access/i);
+  assert.match(config.projects["blocky-studio"].note, /Selected plans include early builds only when that benefit is listed/);
+});
+
+test("commercial readiness matches the published provider identity and approved refund policy", () => {
+  const config = loadPaymentsConfig();
+  const terms = read("legal/terms.html");
+  const refunds = read("legal/refunds.html");
+  assert.equal(config.commercialReadiness.providerIdentityComplete, true);
+  assert.match(terms, /<strong>Commercial name:<\/strong> Blockyfy/);
+  assert.match(terms, /contact@blockyfy\.net/);
+  assert.doesNotMatch(terms, /data-provider-identity-pending|legal operator name|business postal address|tax registration number/i);
+  assert.equal(config.commercialReadiness.refundPolicyApproved, !refunds.includes("data-refund-policy-pending"));
+  assert.equal(config.commercialReadiness.refundPolicyApproved, true);
+  assert.doesNotMatch(refunds, /Draft — owner approval required before sales open/);
+});
+
+test("legal page footers use the three-column desktop grid with responsive overrides", () => {
+  const legalPages = ["terms", "privacy", "refunds", "fulfillment"].map((name) => read(`legal/${name}.html`));
+  for (const page of legalPages) assert.match(page, /class="wrap foot-grid legal-foot-grid"/);
+
+  const css = read("assets/css/landing.css");
+  assert.match(css, /\.foot-grid\.legal-foot-grid\s*\{\s*grid-template-columns:\s*minmax\(0, 1\.6fr\) repeat\(2,/);
+  assert.match(css, /\.foot-grid, \.foot-grid\.legal-foot-grid\s*\{\s*grid-template-columns:\s*1fr 1fr/);
+  assert.match(css, /\.foot-grid, \.foot-grid\.legal-foot-grid\s*\{\s*grid-template-columns:\s*1fr;/);
 });
 
 test("customer portal is public, consistent and restricted to Stripe Billing", () => {
@@ -222,7 +343,15 @@ test("progressive enhancement classes cannot hide content before initialization"
 });
 
 test("all local HTML references resolve", () => {
-  const htmlFiles = ["index.html", "projects/dragon-block-galactic.html", "404.html"];
+  const htmlFiles = [
+    "index.html",
+    "projects/dragon-block-galactic.html",
+    "legal/terms.html",
+    "legal/privacy.html",
+    "legal/refunds.html",
+    "legal/fulfillment.html",
+    "404.html"
+  ];
   const missing = [];
 
   for (const htmlFile of htmlFiles) {
