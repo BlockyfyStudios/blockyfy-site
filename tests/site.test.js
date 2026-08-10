@@ -283,6 +283,129 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
   assert.match(config.projects["blocky-studio"].note, /Selected plans include early builds only when that benefit is listed/);
 });
 
+test("Dragon Block Galactic reserves the trailer and explains the living galaxy behind it", () => {
+  const page = read("projects/dragon-block-galactic.html");
+  const javascript = read("assets/js/landing.js");
+
+  assert.match(page, /<a href="#systems">Gameplay<\/a>/);
+  assert.match(page, /<h2 class="display">Gameplay<\/h2>/);
+  assert.match(page, /Official trailer in production/);
+  assert.match(page, /class="trailer-stage" data-youtube-id=""/);
+  assert.match(page, /class="trailer-play"[^>]+disabled/);
+  assert.match(page, /id="galaxy-depth-title">Do not just visit the galaxy\. Become one of its powers\./);
+  assert.equal((page.match(/<article class="galaxy-depth-panel/g) || []).length, 2);
+  assert.match(page, /Frieza lands with a hundred soldiers/);
+  assert.match(page, /active multiplayer and performance verification/);
+  assert.doesNotMatch(page, /play-loop|dbg-gameplay-|<div class="systems\b|<div class="system\b|<span class="ico"/);
+  assert.doesNotMatch(page, /<iframe|youtube\.com\/embed/);
+
+  assert.match(javascript, /\^\[A-Za-z0-9_-\]\{11\}\$/);
+  assert.match(javascript, /https:\/\/www\.youtube-nocookie\.com\/embed\//);
+  assert.match(javascript, /replaceChildren\(iframe\)/);
+});
+
+test("Dragon Block Galactic leads with empires, civilizations and planetary consequence", () => {
+  const page = read("projects/dragon-block-galactic.html");
+
+  assert.match(page, /<meta name="description"[^>]+living civilizations, player-run empires[^>]+Frieza/);
+  assert.match(page, /Found an organization, recruit soldiers and build a treasury/);
+  assert.match(page, /Claim inhabited planets, demand tribute, raid rivals or defend civilizations/);
+  assert.match(page, /King Cold, Frieza and other galactic powers/);
+  assert.match(page, /Player-run<\/b><span>empires and organizations/);
+  assert.match(page, /Living<\/b><span>civilizations and races/);
+  assert.match(page, /Persistent<\/b><span>territory and history/);
+
+  for (const power of ["Cold Empire", "Saiyan Army", "Red Ribbon Army", "Galactic Patrol"]) {
+    assert.ok(page.includes(power), `${power} must be named as part of the living galaxy`);
+  }
+  for (const concept of [
+    "Generated species have leaders, political blocs, markets, shortages, technological eras",
+    "Claim and govern planets",
+    "collect tribute from occupied civilizations",
+    "Raid, protect or liberate",
+    "vassalage or consensual annexation",
+    "destroy or restore eligible planets"
+  ]) {
+    assert.ok(page.includes(concept), `${concept} must be represented`);
+  }
+});
+
+test("trailer loader stays inert until a valid YouTube ID is clicked", () => {
+  function runTrailer(videoId) {
+    const listeners = {};
+    const play = {
+      disabled: true,
+      attributes: {},
+      setAttribute(name, value) { this.attributes[name] = value; },
+      addEventListener(name, callback) { listeners[name] = callback; }
+    };
+    const status = { textContent: "Coming soon" };
+    const detail = { textContent: "In production" };
+    const addedClasses = [];
+    const frame = {
+      child: null,
+      classList: { add(name) { addedClasses.push(name); } },
+      getAttribute(name) {
+        if (name === "data-youtube-id") return videoId;
+        if (name === "data-youtube-title") return "DBG trailer";
+        return null;
+      },
+      querySelector(selector) {
+        if (selector === ".trailer-play") return play;
+        if (selector === "[data-trailer-status]") return status;
+        if (selector === "[data-trailer-detail]") return detail;
+        return null;
+      },
+      replaceChildren(child) { this.child = child; }
+    };
+    let iframeCreations = 0;
+    const iframe = {
+      attributes: {},
+      setAttribute(name, value) { this.attributes[name] = value; }
+    };
+    const document = {
+      querySelector: () => null,
+      getElementById: () => null,
+      querySelectorAll(selector) {
+        return selector === "[data-youtube-id]" ? [frame] : [];
+      },
+      createElement(tagName) {
+        assert.equal(tagName, "iframe");
+        iframeCreations += 1;
+        return iframe;
+      }
+    };
+    const window = { matchMedia: () => ({ matches: true }) };
+
+    vm.runInNewContext(read("assets/js/landing.js"), { document, window }, {
+      filename: "assets/js/landing.js"
+    });
+    return { frame, play, status, detail, listeners, addedClasses, iframe, iframeCreations: () => iframeCreations };
+  }
+
+  for (const videoId of ["", "short-id", "<script>"]) {
+    const inactive = runTrailer(videoId);
+    assert.equal(inactive.play.disabled, true);
+    assert.equal(inactive.listeners.click, undefined);
+    assert.equal(inactive.iframeCreations(), 0);
+  }
+
+  const active = runTrailer("AbCdEf12-_3");
+  assert.equal(active.play.disabled, false);
+  assert.ok(active.addedClasses.includes("trailer-ready"));
+  assert.equal(active.status.textContent, "Official gameplay trailer");
+  assert.equal(active.detail.textContent, "Play now");
+  assert.equal(active.iframeCreations(), 0, "YouTube must not load before the click");
+
+  active.listeners.click();
+  assert.equal(active.iframeCreations(), 1);
+  assert.equal(active.frame.child, active.iframe);
+  assert.equal(active.iframe.src, "https://www.youtube-nocookie.com/embed/AbCdEf12-_3?autoplay=1");
+  assert.equal(active.iframe.title, "DBG trailer");
+  assert.equal(active.iframe.attributes.referrerpolicy, "strict-origin-when-cross-origin");
+  assert.ok(active.addedClasses.includes("trailer-playing"));
+});
+
 test("commercial readiness matches the published provider identity and approved refund policy", () => {
   const config = loadPaymentsConfig();
   const terms = read("legal/terms.html");
