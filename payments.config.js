@@ -42,7 +42,7 @@ window.BLOCKYFY_PAYMENTS = {
     "blockyfy": {
       accent: "green",
       checkoutOpen: false,
-      note: "One membership for the whole studio. Every current and future project is included. Discord perks require joining our server and completing one-time verification.",
+      note: "One membership for the whole studio. Every current and future project is included. Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access.",
       tiers: [
         {
           id: "blockyfy-global",
@@ -69,7 +69,7 @@ window.BLOCKYFY_PAYMENTS = {
       /* URLs ficam vazias enquanto o checkout estiver fechado. Ver a nota
          no topo do arquivo antes de reabrir. */
       checkoutOpen: false,
-      note: "The mod is free and will remain free. Supporting funds development and unlocks only the perks listed for the selected plan. Discord perks require joining our server and completing one-time verification.",
+      note: "The mod is free and will remain free. Supporting funds development and unlocks only the perks listed for the selected plan. Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access.",
       tiers: [
         {
           id: "warrior",

@@ -264,6 +264,8 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
     assert.match(page, /actual Discord username \(not your display name\)/);
     assert.match(page, /allow direct messages from server members/);
     assert.match(page, /one-time verification link/);
+    assert.match(page, /Discord membership is required for protected access/);
+    assert.match(page, /early-access builds and closed betas remain locked even if a Minecraft username was provided/i);
     for (const policy of ["terms", "privacy", "refunds", "fulfillment"]) {
       assert.match(page, new RegExp(`href="/legal/${policy}"`));
     }
@@ -275,8 +277,13 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
   assert.doesNotMatch(projectPage, /Supporters follow progress from the inside and try builds first/i);
   assert.match(projectPage, /trying builds before public release is limited to plans that explicitly include early access/i);
   assert.match(projectPage, /Minecraft username field is optional/);
+  assert.match(projectPage, /Minecraft username field is optional, but it never unlocks access by itself/);
 
   const config = loadPaymentsConfig();
+  for (const projectId of ["blockyfy", "dragon-block-galactic"]) {
+    assert.match(config.projects[projectId].note, /require joining the Blockyfy Discord server and completing one-time verification/i);
+    assert.match(config.projects[projectId].note, /Minecraft username alone does not unlock access/i);
+  }
   const warrior = config.projects["dragon-block-galactic"].tiers.find((tier) => tier.id === "warrior");
   assert.ok(warrior);
   assert.doesNotMatch(warrior.perks.join(" "), /beta|early access/i);
