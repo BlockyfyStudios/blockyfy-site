@@ -266,6 +266,8 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
     assert.match(page, /one-time verification link/);
     assert.match(page, /Discord membership is required for protected access/);
     assert.match(page, /early-access builds and closed betas remain locked even if a Minecraft username was provided/i);
+    assert.match(page, /primary support channel for access, verification, builds, installation and gameplay/i);
+    assert.match(page, /contact@blockyfy\.net<\/a> for billing, privacy or legal requests/i);
     for (const policy of ["terms", "privacy", "refunds", "fulfillment"]) {
       assert.match(page, new RegExp(`href="/legal/${policy}"`));
     }
@@ -278,6 +280,9 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
   assert.match(projectPage, /trying builds before public release is limited to plans that explicitly include early access/i);
   assert.match(projectPage, /Minecraft username field is optional/);
   assert.match(projectPage, /Minecraft username field is optional, but it never unlocks access by itself/);
+  assert.match(projectPage, /Where can I get support\?/);
+  assert.match(projectPage, /Discord \/ Support/);
+  assert.match(pages[0], /Discord \/ Support/);
 
   const config = loadPaymentsConfig();
   for (const projectId of ["blockyfy", "dragon-block-galactic"]) {
