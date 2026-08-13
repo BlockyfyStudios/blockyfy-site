@@ -17,11 +17,10 @@
    O teste valida os dois estados e falha se config, fallback ou texto de
    status divergirem. Enquanto checkoutOpen for false, as URLs ficam vazias.
 
-   ESTADO EM 2026-08-06: checkoutOpen continua FALSE e os links ficam fora
-   desta configuracao publica. O worker que concede os cargos (repo
-   blockyfy-gate) ja esta publicado, e o endpoint Stripe ouve os cinco eventos
-   esperados. Cole as URLs e ligue checkoutOpen somente depois de um teste
-   controlado do fluxo completo passar.
+   ESTADO EM 2026-08-12: o fluxo controlado completo passou (pagamento, webhook,
+   verificacao por DM, cargo no Discord e autenticacao Minecraft). As assinaturas
+   Blockyfy e Dragon Block Galactic estao abertas. Blocky Studio permanece
+   fechado ate estar comercialmente pronto.
    ========================================================================= */
 
 window.BLOCKYFY_PAYMENTS = {
@@ -41,7 +40,7 @@ window.BLOCKYFY_PAYMENTS = {
        Blockyfy project, current and future. Rendered on the home page. */
     "blockyfy": {
       accent: "green",
-      checkoutOpen: false,
+      checkoutOpen: true,
       note: "One membership for the whole studio. Every current and future project is included. Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access.",
       tiers: [
         {
@@ -57,7 +56,7 @@ window.BLOCKYFY_PAYMENTS = {
             "A vote on every project roadmap",
             "Highlighted name in the studio credits"
           ],
-          checkoutUrl: "",
+          checkoutUrl: "https://buy.stripe.com/aFacN5bDsfu60Wv0Da53O00",
           featured: true,
           splash: "All Access!"
         }
@@ -66,9 +65,7 @@ window.BLOCKYFY_PAYMENTS = {
 
     "dragon-block-galactic": {
       accent: "gold",
-      /* URLs ficam vazias enquanto o checkout estiver fechado. Ver a nota
-         no topo do arquivo antes de reabrir. */
-      checkoutOpen: false,
+      checkoutOpen: true,
       note: "The mod is free and will remain free. Supporting funds development and unlocks only the perks listed for the selected plan. Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access.",
       tiers: [
         {
@@ -82,7 +79,7 @@ window.BLOCKYFY_PAYMENTS = {
             "Behind the scenes dev logs",
             "Your name in the supporter credits"
           ],
-          checkoutUrl: "",
+          checkoutUrl: "https://buy.stripe.com/dRm28r9vkeq248H99G53O01",
           featured: false
         },
         {
@@ -97,7 +94,7 @@ window.BLOCKYFY_PAYMENTS = {
             "Closed beta invitations",
             "Vote on the development roadmap"
           ],
-          checkoutUrl: "",
+          checkoutUrl: "https://buy.stripe.com/4gM14n36W1Dg8oX3Pm53O02",
           featured: true
         },
         {
@@ -111,7 +108,7 @@ window.BLOCKYFY_PAYMENTS = {
             "Priority feature suggestions",
             "Legendary role and highlighted credits"
           ],
-          checkoutUrl: "",
+          checkoutUrl: "https://buy.stripe.com/8x2bJ1bDs2HkfRp2Li53O03",
           featured: false
         }
       ]
