@@ -1,9 +1,3 @@
-/* Blockyfy site - renders supporter tiers from payments.config.js.
-   A container declares which project it wants:
-     <div class="tiers" data-tiers="dragon-block-galactic"></div>
-   Only a commercially ready configuration, a project with checkoutOpen: true
-   and an HTTPS buy.stripe.com URL renders a live "Subscribe" link. Every
-   other state fails closed. */
 (function () {
   "use strict";
 

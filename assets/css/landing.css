@@ -1,29 +1,5 @@
-/* =========================================================================
-   BLOCKYFY — design system do site (v4)
-   Linguagem: voxel nativo. A ESTRUTURA segue o que sites de jogo de verdade
-   fazem, conferido em Cobblemon (mod de Minecraft), Landfall, Supergiant e
-   Bithell: heroi liderado pela ARTE do jogo, nav de utilidade, uma frase seca
-   de identidade, tiles de jogo com arte + uma frase + links, comunidade no
-   fim. A v3 era um portfolio de design disfarcado de site de jogo: secao
-   numerada com §, ficha tecnica, ledger de engenharia. Isso saiu.
-   Regras duras deste arquivo, que sao o que tira a cara de template:
-     - border-radius: 0 em TUDO. Nada arredondado, nada de vidro fosco.
-     - sombra sem blur (offset solido), como sombra de bloco.
-     - chanfro de 8px por clip-path no lugar de canto redondo.
-     - nenhum texto com gradiente; acento e cor chapada.
-     - grid de 8px visivel ao fundo, como papel milimetrado.
-     - dado real em monoespacada; retorica em display.
-     - icone SEMPRE svg de linha proprio; emoji como icone e proibido.
-   Escopo: TODAS as paginas do site (index, dragon-block-galactic, 404).
-   Este e o unico css do site; o style.css antigo foi apagado junto com o
-   main.js e a pagina desativada do Blocky Studio (ficam no historico do
-   git, commit 246c486, se um dia precisar).
-   Acento por pagina: o padrao e o verde do estudio; .theme-gold no <body>
-   vira a pagina inteira pro dourado sem tocar em componente nenhum.
-   ========================================================================= */
-
 :root {
-  --u: 8px;                      /* 1 bloco. Todo espacamento e multiplo disso. */
+  --u: 8px;
 
   --bg: #070a0f;
   --bg-2: #0a0e15;
@@ -31,7 +7,7 @@
   --panel-2: #10161f;
   --ink: #e9edf3;
   --ink-2: #9aa6b8;
-  --ink-3: #7d8ba1;   /* medido: #626f83 dava 3.79:1 na faixa de spec, abaixo do AA */
+  --ink-3: #7d8ba1;
   --line: #1a2230;
   --line-hi: #2b3547;
 
@@ -41,7 +17,6 @@
   --gold: #e9c46a;
   --gold-deep: #7a5f24;
 
-  /* acento trocavel: a home usa o verde, a pagina do DBG vira dourada com .theme-gold */
   --accent: var(--green);
   --accent-hi: var(--green-hi);
   --accent-deep: var(--green-deep);
@@ -62,8 +37,6 @@
   );
 }
 
-/* A pagina do DBG troca o acento inteiro pelo dourado so com esta classe no <body>.
-   Nenhum componente conhece cor: todos leem --accent / --accent-hi / --accent-ink. */
 .theme-gold {
   --accent: var(--gold);
   --accent-hi: #f6dd8f;
@@ -87,7 +60,6 @@ body {
   overflow-x: hidden;
 }
 
-/* papel milimetrado: 1 linha fina a cada bloco, uma forte a cada 8 blocos */
 .paper {
   position: fixed;
   inset: 0;
@@ -117,7 +89,6 @@ img, svg { max-width: 100%; }
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 
-/* ---------------------------------------------------------------- tipografia */
 .mono {
   font-family: var(--mono);
   font-size: 12px;
@@ -143,7 +114,6 @@ h3 { font-size: 19px; font-weight: 800; letter-spacing: -0.015em; margin: 0; }
 p { margin: 0; }
 .lede { font-size: clamp(16px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; }
 
-/* ---------------------------------------------------------------- botoes */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -184,7 +154,6 @@ p { margin: 0; }
 
 .cta-row { display: flex; flex-wrap: wrap; gap: calc(var(--u) * 1.5); }
 
-/* ---------------------------------------------------------------- header */
 .site-head {
   position: sticky;
   top: 0;
@@ -212,11 +181,6 @@ p { margin: 0; }
 .wordmark svg { width: 22px; height: 22px; display: block; }
 
 .head-nav { display: flex; align-items: center; gap: calc(var(--u) * 3); margin-left: auto; }
-/* O :not(.btn) e o ponto todo: o estilo de LINK do menu nao pode encostar nos botoes.
-   Sem ele, `.head-nav a` (0,1,1) ganhava de `.btn` (0,1,0) e duas coisas quebravam:
-   o texto do botao fantasma herdava a tinta escura do acento e sumia (1.04:1), e o
-   border-bottom transparente do link comia a borda de baixo do fantasma, deixando
-   ele como um "U" aberto. Escopo certo resolve os dois sem override nenhum. */
 .head-nav a:not(.btn) {
   font-family: var(--mono);
   font-size: 12px;
@@ -242,10 +206,6 @@ p { margin: 0; }
 }
 .burger span { display: block; width: 18px; height: 2px; background: currentColor; margin: 3px auto; }
 
-/* ---------------------------------------------------------------- hero
-   Site de jogo e liderado por ARTE: o jogo em destaque ocupa a dobra e o CTA e
-   concreto. Foi o padrao que apareceu em todas as referencias reais (Landfall abre
-   com "GET PEAK", Cobblemon com a arte + uma linha, Bithell com o jogo atual). */
 .hero { padding: calc(var(--u) * 9) 0 calc(var(--u) * 7); }
 
 .hero-game { padding: calc(var(--u) * 7) 0 calc(var(--u) * 8); text-align: center; }
@@ -262,7 +222,6 @@ p { margin: 0; }
 .cta-center { justify-content: center; }
 .btn-lg { padding: 17px 30px; font-size: 14px; }
 
-/* faixa de novidade: o Cobblemon poe a versao atual em destaque logo abaixo da dobra */
 .strip {
   display: block;
   text-decoration: none;
@@ -290,7 +249,6 @@ p { margin: 0; }
 .strip-txt strong { color: var(--ink); font-weight: 700; }
 .strip-go { font-family: var(--mono); font-size: 12px; color: var(--accent); flex: none; }
 
-/* frase de identidade: seca e factual, como fazem Supergiant e Bithell */
 .studio-line {
   font-size: clamp(18px, 2.1vw, 26px);
   line-height: 1.45;
@@ -302,8 +260,6 @@ p { margin: 0; }
 .sec-title { margin-bottom: calc(var(--u) * 4); }
 .sec-sub { color: var(--ink-2); max-width: 64ch; margin-bottom: calc(var(--u) * 4); font-size: 17px; }
 
-/* tiles de jogo: arte + titulo + UMA frase afiada + links. Padrao repetido em
-   Landfall, Supergiant e Bithell. */
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: calc(var(--u) * 4); }
 .tile { clip-path: var(--chamfer); background: var(--panel); box-shadow: var(--shadow); display: flex; flex-direction: column; }
 .tile-art {
@@ -342,13 +298,11 @@ p { margin: 0; }
 .hero h1 em { font-style: normal; color: var(--accent); }
 .hero .lede { margin-bottom: calc(var(--u) * 4); }
 
-/* bloco isometrico desenhado a mao, cubo a cubo (sem geracao aleatoria) */
 .iso { width: 100%; height: auto; display: block; }
 .iso .lit { animation: blink 4s steps(1, end) infinite; }
 @keyframes blink { 0%, 62% { opacity: 1; } 63%, 100% { opacity: 0.25; } }
 @media (prefers-reduced-motion: reduce) { .iso .lit { animation: none; } }
 
-/* ---------------------------------------------------------------- faixa de spec */
 .specbar {
   border-block: 1px solid var(--line);
   background: var(--bg-2);
@@ -383,7 +337,6 @@ p { margin: 0; }
   color: var(--ink-3);
 }
 
-/* ---------------------------------------------------------------- secoes */
 .section { padding: calc(var(--u) * 12) 0; }
 .section + .section { padding-top: calc(var(--u) * 4); }
 
@@ -413,7 +366,6 @@ p { margin: 0; }
   flex: none;
 }
 
-/* ---------------------------------------------------------------- projeto */
 .proj {
   clip-path: var(--chamfer);
   background: var(--panel);
@@ -435,7 +387,6 @@ p { margin: 0; }
 .proj-copy p { color: var(--ink-2); margin-bottom: calc(var(--u) * 3); }
 .proj .cta-row { margin-top: calc(var(--u) * 4); }
 
-/* ficha tecnica com linha pontilhada, como indice de manual */
 .spec { padding: calc(var(--u) * 5); display: flex; flex-direction: column; gap: 0; }
 .spec dl { margin: 0; }
 .spec div {
@@ -473,7 +424,6 @@ p { margin: 0; }
   padding: 0 12px;
 }
 
-/* ---------------------------------------------------------------- pagina de projeto */
 .hero-project { padding: calc(var(--u) * 8) 0 calc(var(--u) * 6); }
 .hero-project .eyebrow { justify-content: flex-start; }
 .hero-logo { margin: calc(var(--u) * 3) 0; max-width: min(620px, 100%); }
@@ -492,7 +442,6 @@ p { margin: 0; }
 }
 .chips li.on { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
 
-/* trailer: frame pronto para receber o ID do YouTube, sem carregar terceiros antes do clique */
 .trailer-block {
   clip-path: var(--chamfer);
   background: var(--panel);
@@ -594,7 +543,6 @@ p { margin: 0; }
 .trailer-context h3 { max-width: 13ch; font-size: clamp(30px, 3.8vw, 52px); }
 .trailer-context > p { max-width: 58ch; color: var(--ink-2); }
 
-/* profundidade galactica: fatos editoriais, sem voltar a cards de icones */
 .galaxy-depth {
   margin-top: calc(var(--u) * 4);
   border: 1px solid var(--line);
@@ -654,7 +602,6 @@ p { margin: 0; }
 }
 .galaxy-dev-note strong { color: var(--ink-2); text-transform: uppercase; }
 
-/* faq: acordeao sem arredondar nada */
 .faq { border-top: 1px solid var(--line); }
 .faq details { border-bottom: 1px solid var(--line); }
 .faq summary {
@@ -680,7 +627,6 @@ p { margin: 0; }
 .faq details[open] summary::before { content: "\2212"; }
 .faq p { color: var(--ink-2); padding: 0 0 calc(var(--u) * 3) calc(var(--u) * 4); max-width: 78ch; }
 
-/* ---------------------------------------------------------------- tiers (checkout.js) */
 .tiers { display: grid; gap: calc(var(--u) * 3); grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); align-items: start; }
 .tiers-solo { grid-template-columns: 1fr; max-width: 620px; }
 .tier.featured { outline: 2px solid var(--accent); outline-offset: -2px; }
@@ -751,7 +697,6 @@ p { margin: 0; }
   background: var(--bg-2);
 }
 
-/* ---------------------------------------------------------------- paginas legais */
 .legal-hero { padding: calc(var(--u) * 9) 0 calc(var(--u) * 5); }
 .legal-hero .display { margin: calc(var(--u) * 2) 0; }
 .legal-meta {
@@ -810,7 +755,6 @@ p { margin: 0; }
 .legal-nav a { color: var(--ink-2); text-decoration: none; }
 .legal-nav a[aria-current="page"], .legal-nav a:hover { color: var(--accent); }
 
-/* ---------------------------------------------------------------- band */
 .band {
   clip-path: var(--chamfer);
   background: var(--panel-2);
@@ -824,7 +768,6 @@ p { margin: 0; }
 .band h2 { margin-bottom: calc(var(--u) * 2); }
 .band p { color: var(--ink-2); max-width: 54ch; }
 
-/* ---------------------------------------------------------------- footer */
 .site-foot {
   margin-top: calc(var(--u) * 10);
   border-top: 1px solid var(--line);
@@ -874,16 +817,12 @@ p { margin: 0; }
   color: var(--ink-3);
 }
 
-/* ---------------------------------------------------------------- reveal
-   So esconde depois que o observer foi instalado. Sem JS, ou se o script
-   falhar antes de inicializar, todo o conteudo continua visivel. */
 .reveal-ready .rise { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
 .reveal-ready .rise.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .reveal-ready .rise { opacity: 1; transform: none; transition: none; }
 }
 
-/* ---------------------------------------------------------------- responsivo */
 @media (max-width: 1000px) {
   .proj, .band, .legal-layout { grid-template-columns: 1fr; }
   .trailer-context, .galaxy-depth-intro, .galaxy-event { grid-template-columns: 1fr; }
@@ -908,16 +847,12 @@ p { margin: 0; }
     border-bottom: 1px solid var(--line);
     padding: calc(var(--u) * 2);
   }
-  /* strip: em linha unica o texto ficava numa coluna de ~170px entre a tag e o "More",
-     esticando a faixa pra ~220px de altura. Quebra: tag + More na primeira linha,
-     texto inteiro na segunda. */
   .strip-inner { flex-wrap: wrap; align-items: center; }
   .strip-txt { flex-basis: 100%; order: 3; }
   .strip-go { margin-left: auto; }
 
   .nav-ready .head-nav { display: none; }
   .nav-ready .head-nav.open { display: flex; }
-  /* mesmo cuidado do desktop: separador so nos links, nunca nos botoes */
   .head-nav a:not(.btn) { padding: 12px 8px; border-bottom: 1px solid var(--line); }
   .head-nav .btn { margin-top: var(--u); justify-content: center; }
   .nav-ready .burger { display: block; }

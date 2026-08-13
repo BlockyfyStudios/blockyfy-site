@@ -1,13 +1,8 @@
-/* Blockyfy — comportamento das paginas "spec sheet" (home, DBG e 404).
-   Enxuto de proposito: sem parallax, sem tilt, sem starfield. O peso visual
-   vem da estrutura, nao de animacao. Sem dependencias.
-   Unico js de comportamento do site (o main.js antigo foi apagado). */
 (function () {
   "use strict";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ------------------------------------------------ menu mobile */
   var burger = document.querySelector(".burger");
   var nav = document.getElementById("nav");
   if (burger && nav) {
@@ -24,9 +19,6 @@
     document.documentElement.classList.add("nav-ready");
   }
 
-  /* ------------------------------------------------ trailer sob demanda
-     A pagina fica sem contato com o YouTube ate existir um ID valido e o
-     visitante escolher reproduzir o video. */
   document.querySelectorAll("[data-youtube-id]").forEach(function (frame) {
     var videoId = (frame.getAttribute("data-youtube-id") || "").trim();
     var play = frame.querySelector(".trailer-play");
@@ -52,7 +44,6 @@
     }, { once: true });
   });
 
-  /* ------------------------------------------------ entrada por scroll */
   var rise = document.querySelectorAll(".rise");
   if ("IntersectionObserver" in window && !reduceMotion) {
     var io = new IntersectionObserver(function (entries) {
@@ -68,7 +59,6 @@
     rise.forEach(function (el) { el.classList.add("in"); });
   }
 
-  /* ------------------------------------------------ ano do rodape */
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = String(new Date().getFullYear());
   });

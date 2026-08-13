@@ -477,6 +477,24 @@ test("progressive enhancement classes cannot hide content before initialization"
   assert.match(javascript, /classList\.add\("reveal-ready"\)/);
 });
 
+test("home page assets do not publish internal source comments", () => {
+  const publicFiles = [
+    "index.html",
+    "assets/css/landing.css",
+    "assets/js/checkout.js",
+    "assets/js/landing.js",
+    "payments.config.js"
+  ];
+
+  for (const file of publicFiles) {
+    assert.doesNotMatch(
+      read(file),
+      /<!--[\s\S]*?-->|\/\*[\s\S]*?\*\//,
+      `${file} must not publish internal comments`
+    );
+  }
+});
+
 test("all local HTML references resolve", () => {
   const htmlFiles = [
     "index.html",

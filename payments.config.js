@@ -1,43 +1,12 @@
-/* =========================================================================
-   BLOCKYFY - CONFIGURACAO DE PAGAMENTOS
-   =========================================================================
-   Este arquivo e a fonte dos cards interativos dos planos de assinatura.
-   Os fallbacks <noscript> espelham nome/preco/estado, e os testes impedem
-   que eles saiam de sincronia com esta configuracao.
-
-   COMO ATIVAR OS PAGAMENTOS (Stripe):
-   1. Confirme produtos, precos recorrentes em USD e campos do checkout.
-   2. Confirme que o nome comercial Blockyfy, contact@blockyfy.net e a politica
-      de reembolso aprovada continuam publicados.
-   3. Cole cada Payment Link no "checkoutUrl" correspondente.
-   4. Atualize os fallbacks <noscript> das paginas de venda: troque cada
-      botao "Opening soon" por um link "Subscribe" para a mesma URL.
-   5. Atualize o texto estatico de status para "Secure checkout by Stripe".
-   6. Troque "checkoutOpen" para true e rode `npm test`.
-   O teste valida os dois estados e falha se config, fallback ou texto de
-   status divergirem. Enquanto checkoutOpen for false, as URLs ficam vazias.
-
-   ESTADO EM 2026-08-12: o fluxo controlado completo passou (pagamento, webhook,
-   verificacao por DM, cargo no Discord e autenticacao Minecraft). As assinaturas
-   Blockyfy e Dragon Block Galactic estao abertas. Blocky Studio permanece
-   fechado ate estar comercialmente pronto.
-   ========================================================================= */
-
 window.BLOCKYFY_PAYMENTS = {
   provider: "stripe",
 
-  /* Trava comercial independente do flag de cada projeto. A identificacao
-     publica minima usa o nome comercial Blockyfy e contact@blockyfy.net. Mesmo
-     com URL valida e checkoutOpen=true, checkout.js nao publica o link enquanto
-     a politica de reembolso nao tiver aprovacao explicita. */
   commercialReadiness: {
     providerIdentityComplete: true,
     refundPolicyApproved: true
   },
 
   projects: {
-    /* Studio-wide membership: one price unlocks the perks of every
-       Blockyfy project, current and future. Rendered on the home page. */
     "blockyfy": {
       accent: "green",
       checkoutOpen: true,
