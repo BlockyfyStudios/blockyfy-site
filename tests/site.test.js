@@ -46,6 +46,10 @@ class FakeElement {
   getAttribute(name) {
     return this.attributes[name] || null;
   }
+
+  setAttribute(name, value) {
+    this.attributes[name] = String(value);
+  }
 }
 
 function descendantsByTag(element, tagName) {
@@ -116,6 +120,17 @@ function validStripeCheckoutUrl(value) {
     return false;
   }
 }
+
+test("checkout shows an accessible status when plan configuration is missing", () => {
+  for (const invalidProject of [undefined, project({ tiers: [] })]) {
+    const { mount } = renderProject(invalidProject);
+    const statuses = descendantsByTag(mount, "p");
+    assert.equal(statuses.length, 1);
+    assert.equal(statuses[0].textContent, "Plans are temporarily unavailable. Please try again later.");
+    assert.equal(statuses[0].attributes.role, "status");
+    assert.equal(statuses[0].attributes["aria-live"], "polite");
+  }
+});
 
 test("payment configuration supports closed and open states without weakening fail-closed behavior", () => {
   const config = loadPaymentsConfig();
@@ -418,6 +433,63 @@ test("trailer loader stays inert until a valid YouTube ID is clicked", () => {
   assert.ok(active.addedClasses.includes("trailer-playing"));
 });
 
+test("mobile menu moves focus on open and closes with Escape", () => {
+  const burgerListeners = {};
+  const navListeners = {};
+  const documentListeners = {};
+  const navClasses = new Set();
+  let firstLinkFocus = 0;
+  let burgerFocus = 0;
+
+  const firstLink = { focus() { firstLinkFocus += 1; } };
+  const burger = {
+    attributes: {},
+    addEventListener(name, callback) { burgerListeners[name] = callback; },
+    setAttribute(name, value) { this.attributes[name] = value; },
+    focus() { burgerFocus += 1; }
+  };
+  const nav = {
+    classList: {
+      add(name) { navClasses.add(name); },
+      remove(name) { navClasses.delete(name); },
+      contains(name) { return navClasses.has(name); },
+      toggle(name) {
+        if (navClasses.has(name)) {
+          navClasses.delete(name);
+          return false;
+        }
+        navClasses.add(name);
+        return true;
+      }
+    },
+    addEventListener(name, callback) { navListeners[name] = callback; },
+    querySelector() { return firstLink; }
+  };
+  const document = {
+    documentElement: { classList: { add() {} } },
+    querySelector(selector) { return selector === ".burger" ? burger : null; },
+    getElementById(id) { return id === "nav" ? nav : null; },
+    querySelectorAll() { return []; },
+    addEventListener(name, callback) { documentListeners[name] = callback; }
+  };
+  const window = { matchMedia: () => ({ matches: true }) };
+
+  vm.runInNewContext(read("assets/js/landing.js"), { document, window }, {
+    filename: "assets/js/landing.js"
+  });
+
+  burgerListeners.click();
+  assert.equal(nav.classList.contains("open"), true);
+  assert.equal(burger.attributes["aria-expanded"], "true");
+  assert.equal(firstLinkFocus, 1, "keyboard focus should enter the opened menu");
+
+  documentListeners.keydown({ key: "Escape" });
+  assert.equal(nav.classList.contains("open"), false);
+  assert.equal(burger.attributes["aria-expanded"], "false");
+  assert.equal(burgerFocus, 1, "Escape should return focus to the menu button");
+  assert.ok(navListeners.click, "link clicks must continue closing the menu");
+});
+
 test("commercial readiness matches the published provider identity and approved refund policy", () => {
   const config = loadPaymentsConfig();
   const terms = read("legal/terms.html");
@@ -429,6 +501,18 @@ test("commercial readiness matches the published provider identity and approved 
   assert.equal(config.commercialReadiness.refundPolicyApproved, !refunds.includes("data-refund-policy-pending"));
   assert.equal(config.commercialReadiness.refundPolicyApproved, true);
   assert.doesNotMatch(refunds, /Draft — owner approval required before sales open/);
+});
+
+test("privacy promises match the implemented deletion and retention contract", () => {
+  const privacy = read("legal/privacy.html");
+  assert.match(privacy, /identifying subscription-profile data[^.]*within 30 days/i);
+  assert.match(privacy, /administrative correction history[^.]*180 days/i);
+  assert.match(privacy, /minimal subscription-ID tombstone/i);
+  assert.match(privacy, /authenticated administrative deletion procedure/i);
+  assert.match(privacy, /restricted revocation record[^.]*retries/i);
+  assert.match(privacy, /deleted after revocation succeeds/i);
+  assert.match(privacy, /first end it in Stripe so billing does not continue/i);
+  assert.doesNotMatch(privacy, /kept[^.]*indefinitely/i);
 });
 
 test("legal page footers use the three-column desktop grid with responsive overrides", () => {

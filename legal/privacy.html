@@ -81,13 +81,15 @@
 
       <section id="retention">
         <h2>5. Retention and security</h2>
-        <p>Operational membership data is kept while a membership is active and afterward only as long as reasonably needed for support, accounting, disputes, abuse prevention and legal obligations. Short-lived verification secrets expire and are not intended as permanent login credentials. Records no longer needed for those purposes are deleted or de-identified.</p>
+        <p>Operational membership data is kept while a membership is active. After Stripe reports that it has ended, identifying subscription-profile data in Blockyfy's Gate is automatically deleted or de-identified within 30 days. Stripe event identifiers used for deduplication are kept for 30 days, and administrative correction history is kept for no more than 180 days. Short-lived verification challenges and sessions expire sooner.</p>
+        <p>If Discord has not yet accepted removal of a no-longer-entitled supporter role, the Discord user ID may remain only in a restricted revocation record while Blockyfy retries that removal. It is deleted after revocation succeeds when no other active membership or Minecraft binding still uses it.</p>
+        <p>A minimal subscription-ID tombstone may be retained after erasure to stop delayed or replayed Stripe events from recreating access. It does not retain the checkout email, Stripe customer ID, Discord username or user ID, Minecraft username or UUID, verification token, or administrative correction history. Stripe may retain separate billing, fraud-prevention, accounting or legal records under its own policy and applicable law.</p>
         <p>Blockyfy uses access controls, restricted service credentials and one-time verification links to protect membership records. No online service can guarantee absolute security, so suspected misuse should be reported promptly.</p>
       </section>
 
       <section id="choices">
         <h2>6. Your choices and rights</h2>
-        <p>You may ask Blockyfy to provide, correct or delete personal information, or object to or restrict certain uses where applicable. Include the checkout email and enough information to identify the membership, but never send a full card number or password. Some billing, fraud-prevention or legal records may need to be retained.</p>
+        <p>You may ask Blockyfy to provide, correct or delete personal information, or object to or restrict certain uses where applicable. Include the checkout email and enough information to identify the membership, but never send a full card number or password. If a paid membership is still active, Blockyfy must first end it in Stripe so billing does not continue after service data is erased. Blockyfy has an authenticated administrative deletion procedure for this request; the limited anti-replay tombstone described above and records required for billing, fraud prevention or law may still be retained.</p>
         <p>You can correct an incorrectly entered Discord or Minecraft username by contacting <a href="mailto:contact@blockyfy.net">contact@blockyfy.net</a>. You can manage or cancel billing through the <a href="https://billing.stripe.com/p/login/aFacN5bDsfu60Wv0Da53O00" target="_blank" rel="noopener noreferrer">Stripe customer portal</a>.</p>
       </section>
 

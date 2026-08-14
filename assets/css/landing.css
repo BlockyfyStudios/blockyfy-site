@@ -260,7 +260,7 @@ p { margin: 0; }
 .sec-title { margin-bottom: calc(var(--u) * 4); }
 .sec-sub { color: var(--ink-2); max-width: 64ch; margin-bottom: calc(var(--u) * 4); font-size: 17px; }
 
-.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: calc(var(--u) * 4); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: calc(var(--u) * 4); }
 .tile { clip-path: var(--chamfer); background: var(--panel); box-shadow: var(--shadow); display: flex; flex-direction: column; }
 .tile-art {
   display: grid;

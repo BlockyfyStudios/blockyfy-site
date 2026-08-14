@@ -6,15 +6,27 @@
   var burger = document.querySelector(".burger");
   var nav = document.getElementById("nav");
   if (burger && nav) {
+    function closeMenu(returnFocus) {
+      nav.classList.remove("open");
+      burger.setAttribute("aria-expanded", "false");
+      if (returnFocus) burger.focus();
+    }
+
     burger.addEventListener("click", function () {
       var open = nav.classList.toggle("open");
       burger.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) {
+        var firstLink = nav.querySelector("a[href]");
+        if (firstLink) firstLink.focus();
+      }
     });
     nav.addEventListener("click", function (e) {
       if (e.target.closest("a")) {
-        nav.classList.remove("open");
-        burger.setAttribute("aria-expanded", "false");
+        closeMenu(false);
       }
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("open")) closeMenu(true);
     });
     document.documentElement.classList.add("nav-ready");
   }

@@ -1,14 +1,27 @@
 (function () {
   "use strict";
 
-  var cfg = window.BLOCKYFY_PAYMENTS;
-  if (!cfg || !cfg.projects) return;
-
   function el(tag, className, text) {
     var node = document.createElement(tag);
     if (className) node.className = className;
     if (text) node.textContent = text;
     return node;
+  }
+
+  var mounts = document.querySelectorAll("[data-tiers]");
+  function renderStatus(mount, message) {
+    var status = el("p", "checkout-status", message);
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    mount.appendChild(status);
+  }
+
+  var cfg = window.BLOCKYFY_PAYMENTS;
+  if (!cfg || !cfg.projects || typeof cfg.projects !== "object" || Array.isArray(cfg.projects)) {
+    mounts.forEach(function (mount) {
+      renderStatus(mount, "Plans are temporarily unavailable. Please try again later.");
+    });
+    return;
   }
 
   function commercialReady(config) {
@@ -32,9 +45,12 @@
     }
   }
 
-  document.querySelectorAll("[data-tiers]").forEach(function (mount) {
+  mounts.forEach(function (mount) {
     var project = cfg.projects[mount.getAttribute("data-tiers")];
-    if (!project) return;
+    if (!project || !Array.isArray(project.tiers) || project.tiers.length === 0) {
+      renderStatus(mount, "Plans are temporarily unavailable. Please try again later.");
+      return;
+    }
 
     var hasOpenCheckout = false;
 
