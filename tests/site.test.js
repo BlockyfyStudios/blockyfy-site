@@ -278,8 +278,7 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
   assert.doesNotMatch(projectPage, /granted automatically/i);
   assert.doesNotMatch(projectPage, /Supporters follow progress from the inside and try builds first/i);
   assert.match(projectPage, /trying builds before public release is limited to plans that explicitly include early access/i);
-  assert.match(projectPage, /Minecraft username field is optional/);
-  assert.match(projectPage, /Minecraft username field is optional, but it never unlocks access by itself/);
+  assert.match(projectPage, /Both fields are required, but a Minecraft username never unlocks access by itself/);
   assert.match(projectPage, /Where can I get support\?/);
   assert.match(projectPage, /Discord \/ Support/);
   assert.match(pages[0], /Discord \/ Support/);
