@@ -294,6 +294,23 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
   assert.match(config.projects["blocky-studio"].note, /Selected plans include early builds only when that benefit is listed/);
 });
 
+test("post-payment confirmation gives receipt and Discord fulfillment guidance without exposing checkout data", () => {
+  const page = read("membership/confirmed.html");
+
+  assert.match(page, /<meta name="robots" content="noindex, nofollow">/);
+  assert.match(page, /Payment confirmed/);
+  assert.match(page, /membership payment is complete/);
+  assert.match(page, /Stripe will send the receipt to the email address used at checkout/);
+  assert.match(page, /Payment alone does not unlock protected benefits/);
+  assert.match(page, /Allow direct messages/);
+  assert.match(page, /one-time Discord verification/);
+  assert.match(page, /href="https:\/\/discord\.gg\/H6xtA9x3qe"/);
+  assert.match(page, /href="https:\/\/billing\.stripe\.com\/p\/login\/aFacN5bDsfu60Wv0Da53O00"/);
+  assert.match(page, /contact@blockyfy\.net/);
+  assert.doesNotMatch(page, /session_id|URLSearchParams|location\.search/);
+  assert.doesNotMatch(read("sitemap.xml"), /membership\/confirmed/);
+});
+
 test("Dragon Block Galactic reserves the trailer and explains the living galaxy behind it", () => {
   const page = read("projects/dragon-block-galactic.html");
   const javascript = read("assets/js/landing.js");
