@@ -10,7 +10,7 @@ window.BLOCKYFY_PAYMENTS = {
     "blockyfy": {
       accent: "green",
       checkoutOpen: true,
-      note: "One membership for the whole studio. Every current and future project is included. Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access.",
+      note: "One membership for the whole studio. Every current and future project is included. Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access; the first protected Minecraft login also requires approving the exact Mojang-proven UUID in a separate Discord DM.",
       tiers: [
         {
           id: "blockyfy-global",
@@ -35,7 +35,7 @@ window.BLOCKYFY_PAYMENTS = {
     "dragon-block-galactic": {
       accent: "gold",
       checkoutOpen: true,
-      note: "The mod is free and will remain free. Supporting funds development and unlocks only the perks listed for the selected plan. Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access.",
+      note: "The mod is free and will remain free. Supporting funds development and unlocks only the perks listed for the selected plan. Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access; the first protected Minecraft login also requires approving the exact Mojang-proven UUID in a separate Discord DM.",
       tiers: [
         {
           id: "warrior",

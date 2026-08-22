@@ -917,6 +917,22 @@ p { margin: 0; }
   color: var(--ink-3);
 }
 
+.support-intro { margin-bottom: 32px; }
+
+.err { min-height: 82svh; display: flex; align-items: center; }
+.err-code {
+  font-family: var(--mono);
+  font-size: clamp(72px, 18vw, 190px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin: calc(var(--u) * 2) 0 calc(var(--u) * 3);
+  color: var(--accent);
+}
+.err .lede { margin-bottom: calc(var(--u) * 4); }
+.err-coords { margin-top: calc(var(--u) * 5); }
+.err-spec { padding: 0; max-width: 420px; }
+
 .reveal-ready .rise { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
 .reveal-ready .rise.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {

@@ -6,6 +6,16 @@ const vm = require("node:vm");
 
 const root = path.resolve(__dirname, "..");
 const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), "utf8");
+const publicHtml = [
+  "index.html",
+  "404.html",
+  "projects/dragon-block-galactic.html",
+  "membership/confirmed.html",
+  "legal/terms.html",
+  "legal/refunds.html",
+  "legal/privacy.html",
+  "legal/fulfillment.html"
+];
 
 function loadPaymentsConfig() {
   const sandbox = { window: {} };
@@ -116,6 +126,22 @@ function validStripeCheckoutUrl(value) {
     return false;
   }
 }
+
+test("every public page applies the static-host security policy without inline code", () => {
+  for (const file of publicHtml) {
+    const page = read(file);
+    assert.match(page, /<meta http-equiv="Content-Security-Policy" content="[^"]+">/i, file);
+    assert.match(page, /default-src 'self'/, file);
+    assert.match(page, /script-src 'self'/, file);
+    assert.match(page, /object-src 'none'/, file);
+    assert.match(page, /base-uri 'none'/, file);
+    assert.match(page, /connect-src 'none'/, file);
+    assert.doesNotMatch(page, /'unsafe-inline'|'unsafe-eval'/, file);
+    assert.match(page, /<meta name="referrer" content="no-referrer">/i, file);
+    assert.doesNotMatch(page, /<style\b|\sstyle\s*=/i, file);
+    assert.doesNotMatch(page, /<script(?![^>]*\bsrc=)[^>]*>/i, file);
+  }
+});
 
 test("payment configuration supports closed and open states without weakening fail-closed behavior", () => {
   const config = loadPaymentsConfig();
@@ -266,6 +292,8 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
     assert.match(page, /one-time verification link/);
     assert.match(page, /Discord membership is required for protected access/);
     assert.match(page, /early-access builds and closed betas remain locked even if a Minecraft username was provided/i);
+    assert.match(page, /first protected Minecraft login/i);
+    assert.match(page, /exact account and UUID/i);
     assert.match(page, /primary support channel for access, verification, builds, installation and gameplay/i);
     assert.match(page, /contact@blockyfy\.net<\/a> for billing, privacy or legal requests/i);
     for (const policy of ["terms", "privacy", "refunds", "fulfillment"]) {
@@ -287,6 +315,7 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
   for (const projectId of ["blockyfy", "dragon-block-galactic"]) {
     assert.match(config.projects[projectId].note, /require joining the Blockyfy Discord server and completing one-time verification/i);
     assert.match(config.projects[projectId].note, /Minecraft username alone does not unlock access/i);
+    assert.match(config.projects[projectId].note, /exact Mojang-proven UUID in a separate Discord DM/i);
   }
   const warrior = config.projects["dragon-block-galactic"].tiers.find((tier) => tier.id === "warrior");
   assert.ok(warrior);
@@ -304,11 +333,13 @@ test("post-payment confirmation gives receipt and Discord fulfillment guidance w
   assert.match(page, /Payment alone does not unlock protected benefits/);
   assert.match(page, /Allow direct messages/);
   assert.match(page, /one-time Discord verification/);
+  assert.match(page, /separate Discord approval showing the exact Mojang-proven username and UUID/i);
   assert.match(page, /href="https:\/\/discord\.gg\/H6xtA9x3qe"/);
   assert.match(page, /href="https:\/\/billing\.stripe\.com\/p\/login\/aFacN5bDsfu60Wv0Da53O00"/);
   assert.match(page, /contact@blockyfy\.net/);
   assert.doesNotMatch(page, /session_id|URLSearchParams|location\.search/);
   assert.doesNotMatch(read("sitemap.xml"), /membership\/confirmed/);
+  assert.match(read("legal/fulfillment.html"), /first-link approval/i);
 });
 
 test("Dragon Block Galactic reserves the trailer and explains the living galaxy behind it", () => {
