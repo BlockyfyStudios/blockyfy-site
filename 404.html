@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.youtube-nocookie.com; connect-src 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sector not generated | Blockyfy</title>
 <meta name="robots" content="noindex">
@@ -10,20 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/landing.css">
-<style>
-  .err { min-height: 82svh; display: flex; align-items: center; }
-  .err-code {
-    font-family: var(--mono);
-    font-size: clamp(72px, 18vw, 190px);
-    font-weight: 600;
-    letter-spacing: -0.04em;
-    line-height: 0.9;
-    margin: calc(var(--u) * 2) 0 calc(var(--u) * 3);
-    color: var(--accent);
-  }
-  .err .lede { margin-bottom: calc(var(--u) * 4); }
-  .err-coords { margin-top: calc(var(--u) * 5); }
-</style>
 </head>
 <body>
 
@@ -55,7 +43,7 @@
       <a class="btn btn-ghost" href="/projects/dragon-block-galactic">Dragon Block Galactic</a>
     </div>
     <div class="err-coords">
-      <dl class="spec" style="padding: 0; max-width: 420px">
+      <dl class="spec err-spec">
         <div><dt>Status</dt><dd>404 not found</dd></div>
         <div><dt>Sector</dt><dd>uncharted</dd></div>
         <div><dt>Next action</dt><dd>return to base</dd></div>

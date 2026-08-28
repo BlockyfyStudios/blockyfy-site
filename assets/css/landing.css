@@ -755,6 +755,106 @@ p { margin: 0; }
 .legal-nav a { color: var(--ink-2); text-decoration: none; }
 .legal-nav a[aria-current="page"], .legal-nav a:hover { color: var(--accent); }
 
+.confirmation-page { min-height: calc(100vh - 64px); }
+.confirmation-shell { padding: calc(var(--u) * 10) 0 calc(var(--u) * 4); }
+.confirmation-hero {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: calc(var(--u) * 4);
+  align-items: center;
+  max-width: 920px;
+}
+.confirmation-hero .display { margin: calc(var(--u) * 1.5) 0 calc(var(--u) * 2); }
+.confirmation-mark {
+  width: 96px;
+  height: 96px;
+  display: grid;
+  place-items: center;
+  clip-path: var(--chamfer);
+  background: var(--accent);
+  box-shadow: var(--shadow);
+}
+.confirmation-mark span {
+  width: 42px;
+  height: 22px;
+  border-left: 7px solid var(--accent-ink);
+  border-bottom: 7px solid var(--accent-ink);
+  transform: translateY(-4px) rotate(-45deg);
+}
+.confirmation-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.75fr);
+  gap: calc(var(--u) * 3);
+  align-items: start;
+  margin-top: calc(var(--u) * 6);
+}
+.confirmation-steps,
+.confirmation-help {
+  clip-path: var(--chamfer);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  padding: calc(var(--u) * 5);
+}
+.confirmation-help { border-top: 3px solid var(--accent); }
+.confirmation-kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.confirmation-steps h2,
+.confirmation-help h2 { margin: var(--u) 0 calc(var(--u) * 2); font-size: clamp(24px, 3vw, 34px); line-height: 1.1; }
+.confirmation-steps > p:not(.confirmation-kicker),
+.confirmation-note { color: var(--ink-2); }
+.confirmation-steps ol {
+  list-style: none;
+  counter-reset: steps;
+  margin: calc(var(--u) * 4) 0;
+  padding: 0;
+  border-top: 1px solid var(--line-hi);
+}
+.confirmation-steps li {
+  counter-increment: steps;
+  position: relative;
+  min-height: 76px;
+  padding: calc(var(--u) * 2.5) 0 calc(var(--u) * 2.5) 58px;
+  border-bottom: 1px solid var(--line-hi);
+}
+.confirmation-steps li::before {
+  content: "0" counter(steps);
+  position: absolute;
+  left: 0;
+  top: calc(var(--u) * 2.5);
+  font-family: var(--mono);
+  font-weight: 600;
+  color: var(--accent);
+}
+.confirmation-steps li strong,
+.confirmation-steps li span { display: block; }
+.confirmation-steps li span { margin-top: 3px; color: var(--ink-2); }
+.confirmation-status {
+  display: flex;
+  justify-content: space-between;
+  gap: calc(var(--u) * 2);
+  padding: calc(var(--u) * 2) 0;
+  border-bottom: 1px dotted var(--line-hi);
+  color: var(--ink-2);
+}
+.confirmation-status strong { color: var(--ink); text-align: right; }
+.confirmation-note { margin-top: calc(var(--u) * 3); font-size: 14px; }
+.confirmation-note a,
+.confirmation-manage { color: var(--accent); }
+.confirmation-manage {
+  display: inline-block;
+  margin-top: calc(var(--u) * 3);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.confirmation-foot { margin-top: calc(var(--u) * 6); }
+
 .band {
   clip-path: var(--chamfer);
   background: var(--panel-2);
@@ -817,6 +917,22 @@ p { margin: 0; }
   color: var(--ink-3);
 }
 
+.support-intro { margin-bottom: 32px; }
+
+.err { min-height: 82svh; display: flex; align-items: center; }
+.err-code {
+  font-family: var(--mono);
+  font-size: clamp(72px, 18vw, 190px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin: calc(var(--u) * 2) 0 calc(var(--u) * 3);
+  color: var(--accent);
+}
+.err .lede { margin-bottom: calc(var(--u) * 4); }
+.err-coords { margin-top: calc(var(--u) * 5); }
+.err-spec { padding: 0; max-width: 420px; }
+
 .reveal-ready .rise { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
 .reveal-ready .rise.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -824,7 +940,7 @@ p { margin: 0; }
 }
 
 @media (max-width: 1000px) {
-  .proj, .band, .legal-layout { grid-template-columns: 1fr; }
+  .proj, .band, .legal-layout, .confirmation-grid { grid-template-columns: 1fr; }
   .trailer-context, .galaxy-depth-intro, .galaxy-event { grid-template-columns: 1fr; }
   .trailer-context h3, .galaxy-depth-intro h3 { max-width: 16ch; }
   .galaxy-depth-intro > p { max-width: 62ch; }
@@ -864,6 +980,11 @@ p { margin: 0; }
   .galaxy-depth-panels { grid-template-columns: 1fr; }
   .galaxy-dev-note { padding-inline: calc(var(--u) * 3); }
   .proj-copy, .spec, .tier, .band { padding: calc(var(--u) * 3); }
+  .confirmation-shell { padding-top: calc(var(--u) * 7); }
+  .confirmation-hero { grid-template-columns: 1fr; }
+  .confirmation-mark { width: 72px; height: 72px; }
+  .confirmation-mark span { width: 32px; height: 17px; border-width: 5px; }
+  .confirmation-steps, .confirmation-help { padding: calc(var(--u) * 3); }
   .specbar ul { grid-template-columns: repeat(2, 1fr); }
   .specbar li:nth-child(odd) { border-left: 0; }
   .specbar li:nth-child(n + 3) { border-top: 1px solid var(--line); }

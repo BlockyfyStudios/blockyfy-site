@@ -6,6 +6,16 @@ const vm = require("node:vm");
 
 const root = path.resolve(__dirname, "..");
 const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), "utf8");
+const publicHtml = [
+  "index.html",
+  "404.html",
+  "projects/dragon-block-galactic.html",
+  "membership/confirmed.html",
+  "legal/terms.html",
+  "legal/refunds.html",
+  "legal/privacy.html",
+  "legal/fulfillment.html"
+];
 
 function loadPaymentsConfig() {
   const sandbox = { window: {} };
@@ -129,6 +139,22 @@ test("checkout shows an accessible status when plan configuration is missing", (
     assert.equal(statuses[0].textContent, "Plans are temporarily unavailable. Please try again later.");
     assert.equal(statuses[0].attributes.role, "status");
     assert.equal(statuses[0].attributes["aria-live"], "polite");
+  }
+});
+
+test("every public page applies the static-host security policy without inline code", () => {
+  for (const file of publicHtml) {
+    const page = read(file);
+    assert.match(page, /<meta http-equiv="Content-Security-Policy" content="[^"]+">/i, file);
+    assert.match(page, /default-src 'self'/, file);
+    assert.match(page, /script-src 'self'/, file);
+    assert.match(page, /object-src 'none'/, file);
+    assert.match(page, /base-uri 'none'/, file);
+    assert.match(page, /connect-src 'none'/, file);
+    assert.doesNotMatch(page, /'unsafe-inline'|'unsafe-eval'/, file);
+    assert.match(page, /<meta name="referrer" content="no-referrer">/i, file);
+    assert.doesNotMatch(page, /<style\b|\sstyle\s*=/i, file);
+    assert.doesNotMatch(page, /<script(?![^>]*\bsrc=)[^>]*>/i, file);
   }
 });
 
@@ -281,6 +307,8 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
     assert.match(page, /one-time verification link/);
     assert.match(page, /Discord membership is required for protected access/);
     assert.match(page, /early-access builds and closed betas remain locked even if a Minecraft username was provided/i);
+    assert.match(page, /first protected Minecraft login/i);
+    assert.match(page, /verifies your official game session with Mojang and links the proven account automatically/i);
     assert.match(page, /primary support channel for access, verification, builds, installation and gameplay/i);
     assert.match(page, /contact@blockyfy\.net<\/a> for billing, privacy or legal requests/i);
     for (const policy of ["terms", "privacy", "refunds", "fulfillment"]) {
@@ -293,8 +321,7 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
   assert.doesNotMatch(projectPage, /granted automatically/i);
   assert.doesNotMatch(projectPage, /Supporters follow progress from the inside and try builds first/i);
   assert.match(projectPage, /trying builds before public release is limited to plans that explicitly include early access/i);
-  assert.match(projectPage, /Minecraft username field is optional/);
-  assert.match(projectPage, /Minecraft username field is optional, but it never unlocks access by itself/);
+  assert.match(projectPage, /Both fields are required, but a Minecraft username never unlocks access by itself/);
   assert.match(projectPage, /Where can I get support\?/);
   assert.match(projectPage, /Discord \/ Support/);
   assert.match(pages[0], /Discord \/ Support/);
@@ -303,11 +330,31 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
   for (const projectId of ["blockyfy", "dragon-block-galactic"]) {
     assert.match(config.projects[projectId].note, /require joining the Blockyfy Discord server and completing one-time verification/i);
     assert.match(config.projects[projectId].note, /Minecraft username alone does not unlock access/i);
+    assert.match(config.projects[projectId].note, /first protected Minecraft login proves the official account with Mojang and links its UUID automatically/i);
   }
   const warrior = config.projects["dragon-block-galactic"].tiers.find((tier) => tier.id === "warrior");
   assert.ok(warrior);
   assert.doesNotMatch(warrior.perks.join(" "), /beta|early access/i);
   assert.match(config.projects["blocky-studio"].note, /Selected plans include early builds only when that benefit is listed/);
+});
+
+test("post-payment confirmation gives receipt and Discord fulfillment guidance without exposing checkout data", () => {
+  const page = read("membership/confirmed.html");
+
+  assert.match(page, /<meta name="robots" content="noindex, nofollow">/);
+  assert.match(page, /Payment confirmed/);
+  assert.match(page, /membership payment is complete/);
+  assert.match(page, /Stripe will send the receipt to the email address used at checkout/);
+  assert.match(page, /Payment alone does not unlock protected benefits/);
+  assert.match(page, /Allow direct messages/);
+  assert.match(page, /one-time Discord verification/);
+  assert.match(page, /first game login verifies the official account with Mojang and links its UUID automatically/i);
+  assert.match(page, /href="https:\/\/discord\.gg\/H6xtA9x3qe"/);
+  assert.match(page, /href="https:\/\/billing\.stripe\.com\/p\/login\/aFacN5bDsfu60Wv0Da53O00"/);
+  assert.match(page, /contact@blockyfy\.net/);
+  assert.doesNotMatch(page, /session_id|URLSearchParams|location\.search/);
+  assert.doesNotMatch(read("sitemap.xml"), /membership\/confirmed/);
+  assert.match(read("legal/fulfillment.html"), /links the proven UUID automatically on the first eligible login/i);
 });
 
 test("Dragon Block Galactic reserves the trailer and explains the living galaxy behind it", () => {
