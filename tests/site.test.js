@@ -251,6 +251,55 @@ test("checkout note reflects the effective open or closed state", () => {
   assert.equal(open.note.textContent, "Project note. Secure checkout by Stripe. Cancel anytime from the customer portal.");
 });
 
+test("plan cards state plainly whether each plan includes early access", () => {
+  const config = loadPaymentsConfig();
+  const access = {};
+  for (const projectId of ["blockyfy", "dragon-block-galactic"]) {
+    for (const tier of config.projects[projectId].tiers) {
+      assert.equal(typeof tier.access.included, "boolean", `${tier.id} must say whether it includes early access`);
+      assert.ok(tier.access.label, `${tier.id} needs a visible access label`);
+      access[tier.id] = tier.access;
+    }
+  }
+  assert.equal(access.warrior.included, false);
+  assert.doesNotMatch(access.warrior.label, /early.access|beta/i);
+  for (const id of ["super-warrior", "legendary", "blockyfy-global"]) {
+    assert.equal(access[id].included, true, id);
+    assert.match(access[id].label, /early access/i, id);
+  }
+
+  const tier = { id: "t", name: "T", price: "USD $1", perks: [], checkoutUrl: "" };
+  const included = renderProject(project({ tiers: [{ ...tier, access: { included: true, label: "Includes early access" } }] }));
+  const excluded = renderProject(project({ tiers: [{ ...tier, access: { included: false, label: "Doesn't include the game" } }] }));
+  const rowsOf = (mount) => descendantsByTag(mount, "p").filter((node) => /\btier-access\b/.test(node.className));
+  assert.equal(rowsOf(included.mount).length, 1);
+  assert.match(rowsOf(included.mount)[0].className, /\byes\b/);
+  assert.equal(rowsOf(included.mount)[0].textContent, "Includes early access");
+  assert.match(rowsOf(excluded.mount)[0].className, /\bno\b/);
+  assert.equal(rowsOf(renderProject(project()).mount).length, 0, "plans without access info render no access row");
+
+  const projectPage = read("projects/dragon-block-galactic.html");
+  const fallback = projectPage.match(/<noscript>([\s\S]*?)<\/noscript>/)[1];
+  assert.match(fallback, /data-tier-id="warrior">[\s\S]*?class="tier-access no">Doesn't include the game/);
+  assert.match(fallback, /data-tier-id="super-warrior">[\s\S]*?class="tier-access yes">Includes early access/);
+});
+
+test("early-access prices quoted in page copy match the plan config", () => {
+  const config = loadPaymentsConfig();
+  const dollars = (tier) => Number(tier.price.replace(/\D/g, ""));
+  const entry = config.projects["dragon-block-galactic"].tiers
+    .filter((tier) => tier.access && tier.access.included)
+    .sort((a, b) => dollars(a) - dollars(b))[0];
+  const studio = config.projects.blockyfy.tiers[0];
+  const home = read("index.html");
+  const projectPage = read("projects/dragon-block-galactic.html");
+
+  assert.match(home, new RegExp(`Early access starts at USD \\$${dollars(entry)}/month\\.`));
+  assert.match(home, new RegExp(`early-access plans start at USD \\$${dollars(entry)}/month`));
+  assert.match(projectPage, new RegExp(`Early access starts at USD \\$${dollars(entry)}/month with the ${entry.name} plan\\.`));
+  assert.match(projectPage, new RegExp(`covers them all for USD \\$${dollars(studio)}/month`));
+});
+
 test("pages retain plan information and navigation without JavaScript", () => {
   const config = loadPaymentsConfig();
   const home = read("index.html");
@@ -315,12 +364,14 @@ test("sales pages disclose currency, fulfillment steps and every commercial poli
       assert.match(page, new RegExp(`href="/legal/${policy}"`));
     }
   }
-  assert.match(pages[0], /Every public release is free to play/);
-  assert.doesNotMatch(pages[0], /Everything we release is free to play/);
+  for (const page of pages) {
+    assert.match(page, /Each plan includes only the benefits listed on it/);
+    assert.match(page, /How to get in/);
+  }
   const projectPage = pages[1];
   assert.doesNotMatch(projectPage, /granted automatically/i);
   assert.doesNotMatch(projectPage, /Supporters follow progress from the inside and try builds first/i);
-  assert.match(projectPage, /trying builds before public release is limited to plans that explicitly include early access/i);
+  assert.match(projectPage, /playing builds is limited to plans that explicitly include early access/i);
   assert.match(projectPage, /Both fields are required, but a Minecraft username never unlocks access by itself/);
   assert.match(projectPage, /Where can I get support\?/);
   assert.match(projectPage, /Discord \/ Support/);
@@ -357,20 +408,17 @@ test("post-payment confirmation gives receipt and Discord fulfillment guidance w
   assert.match(read("legal/fulfillment.html"), /links the proven UUID automatically on the first eligible login/i);
 });
 
-test("Dragon Block Galactic reserves the trailer and explains the living galaxy behind it", () => {
+test("Dragon Block Galactic embeds the official trailer only after a click", () => {
   const page = read("projects/dragon-block-galactic.html");
   const javascript = read("assets/js/landing.js");
 
-  assert.match(page, /<a href="#systems">Gameplay<\/a>/);
-  assert.match(page, /<h2 class="display">Gameplay<\/h2>/);
-  assert.match(page, /Official trailer in production/);
-  assert.match(page, /class="trailer-stage" data-youtube-id=""/);
-  assert.match(page, /class="trailer-play"[^>]+disabled/);
-  assert.match(page, /id="galaxy-depth-title">Do not just visit the galaxy\. Become one of its powers\./);
-  assert.equal((page.match(/<article class="galaxy-depth-panel/g) || []).length, 2);
-  assert.match(page, /Frieza lands with a hundred soldiers/);
-  assert.match(page, /active multiplayer and performance verification/);
-  assert.doesNotMatch(page, /play-loop|dbg-gameplay-|<div class="systems\b|<div class="system\b|<span class="ico"/);
+  assert.match(page, /<a href="#trailer">Trailer<\/a>/);
+  assert.match(page, /<section class="section" id="trailer">/);
+  assert.match(page, /class="trailer-stage" data-youtube-id="[A-Za-z0-9_-]{11}"/);
+  assert.match(page, /class="trailer-play"[^>]+disabled/, "the play button stays inert until the script validates the ID");
+  assert.match(page, /href="https:\/\/www\.youtube\.com\/watch\?v=[A-Za-z0-9_-]{11}"[^>]*>watch the trailer on YouTube/, "a no-JavaScript fallback link exists");
+  const embedId = page.match(/data-youtube-id="([^"]+)"/)[1];
+  assert.ok(page.includes(`watch?v=${embedId}`), "fallback link and embed must point at the same video");
   assert.doesNotMatch(page, /<iframe|youtube\.com\/embed/);
 
   assert.match(javascript, /\^\[A-Za-z0-9_-\]\{11\}\$/);
@@ -378,30 +426,42 @@ test("Dragon Block Galactic reserves the trailer and explains the living galaxy 
   assert.match(javascript, /replaceChildren\(iframe\)/);
 });
 
-test("Dragon Block Galactic leads with empires, civilizations and planetary consequence", () => {
+test("Dragon Block Galactic explains the living galaxy and player empires", () => {
   const page = read("projects/dragon-block-galactic.html");
 
-  assert.match(page, /<meta name="description"[^>]+living civilizations, player-run empires[^>]+Frieza/);
-  assert.match(page, /Found an organization, recruit soldiers and build a treasury/);
-  assert.match(page, /Claim inhabited planets, demand tribute, raid rivals or defend civilizations/);
-  assert.match(page, /King Cold, Frieza and other galactic powers/);
-  assert.match(page, /Player-run<\/b><span>empires and organizations/);
-  assert.match(page, /Living<\/b><span>civilizations and races/);
-  assert.match(page, /Persistent<\/b><span>territory and history/);
+  assert.match(page, /<meta name="description"[^>]+early access[^>]+Frieza/);
+  assert.match(page, /id="galaxy-depth-title">Don't just visit the galaxy\. Rule part of it\./);
+  assert.equal((page.match(/<article class="galaxy-depth-panel/g) || []).length, 2);
+  assert.match(page, /Frieza lands with a hundred soldiers/);
+  assert.match(page, /empires are still being tested in multiplayer and may change between builds/);
 
   for (const power of ["Cold Empire", "Saiyan Army", "Red Ribbon Army", "Galactic Patrol"]) {
     assert.ok(page.includes(power), `${power} must be named as part of the living galaxy`);
   }
   for (const concept of [
-    "Generated species have leaders, political blocs, markets, shortages, technological eras",
+    "Every species has leaders, political blocs, markets, shortages",
+    "Found an organization with ranks, soldiers and a shared treasury",
     "Claim and govern planets",
     "collect tribute from occupied civilizations",
     "Raid, protect or liberate",
-    "vassalage or consensual annexation",
-    "destroy or restore eligible planets"
+    "destroy or restore planets"
   ]) {
     assert.ok(page.includes(concept), `${concept} must be represented`);
   }
+});
+
+test("marketing pages describe early access and never pitch the game as free", () => {
+  const marketing = {
+    "index.html": read("index.html"),
+    "projects/dragon-block-galactic.html": read("projects/dragon-block-galactic.html"),
+    "payments.config.js": read("payments.config.js")
+  };
+
+  for (const [file, text] of Object.entries(marketing)) {
+    assert.doesNotMatch(text, /\bfree\b/i, `${file} must not mention free or free-to-play`);
+  }
+  assert.match(marketing["index.html"], /Now in early access/);
+  assert.match(marketing["projects/dragon-block-galactic.html"], /Dragon Block Galactic is in early access/);
 });
 
 test("trailer loader stays inert until a valid YouTube ID is clicked", () => {
@@ -468,7 +528,7 @@ test("trailer loader stays inert until a valid YouTube ID is clicked", () => {
   assert.equal(active.play.disabled, false);
   assert.ok(active.addedClasses.includes("trailer-ready"));
   assert.equal(active.status.textContent, "Official gameplay trailer");
-  assert.equal(active.detail.textContent, "Play now");
+  assert.equal(active.detail.textContent, "Watch now");
   assert.equal(active.iframeCreations(), 0, "YouTube must not load before the click");
 
   active.listeners.click();

@@ -10,24 +10,25 @@ window.BLOCKYFY_PAYMENTS = {
     "blockyfy": {
       accent: "green",
       checkoutOpen: true,
-      note: "One membership for the whole studio. Every current and future project is included. Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access; the first protected Minecraft login proves the official account with Mojang and links its UUID automatically.",
+      note: "Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access. The first protected Minecraft login proves the official account with Mojang and links its UUID automatically.",
       tiers: [
         {
           id: "blockyfy-global",
           name: "Blockyfy Supporter",
           price: "USD $30",
           period: "/month",
-          tagline: "Back the whole studio, not just one game.",
+          tagline: "For players who want it all.",
+          access: { included: true, label: "Includes early access to every game" },
           perks: [
             "Every perk from every Blockyfy project, current and future",
             "All-access supporter role on Discord",
-            "Early access builds and closed betas across all games",
+            "Closed betas for every game",
             "A vote on every project roadmap",
             "Highlighted name in the studio credits"
           ],
           checkoutUrl: "https://buy.stripe.com/aFacN5bDsfu60Wv0Da53O00",
           featured: true,
-          splash: "All Access!"
+          splash: "All access"
         }
       ]
     },
@@ -35,17 +36,18 @@ window.BLOCKYFY_PAYMENTS = {
     "dragon-block-galactic": {
       accent: "gold",
       checkoutOpen: true,
-      note: "The mod is free and will remain free. Supporting funds development and unlocks only the perks listed for the selected plan. Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access; the first protected Minecraft login proves the official account with Mojang and links its UUID automatically.",
+      note: "Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access. The first protected Minecraft login proves the official account with Mojang and links its UUID automatically.",
       tiers: [
         {
           id: "warrior",
           name: "Warrior",
           price: "USD $4",
           period: "/month",
-          tagline: "Stand with the project.",
+          tagline: "Support the mod and follow its progress.",
+          access: { included: false, label: "Doesn't include the game" },
           perks: [
             "Supporter role on Discord",
-            "Behind the scenes dev logs",
+            "Behind-the-scenes dev logs",
             "Your name in the supporter credits"
           ],
           checkoutUrl: "https://buy.stripe.com/dRm28r9vkeq248H99G53O01",
@@ -56,26 +58,29 @@ window.BLOCKYFY_PAYMENTS = {
           name: "Super Warrior",
           price: "USD $12",
           period: "/month",
-          tagline: "Fight on the front line.",
+          tagline: "Play now and help steer the game.",
+          access: { included: true, label: "Includes early access" },
           perks: [
             "Everything in Warrior",
-            "Early access builds before public release",
+            "Every new build, as soon as it's ready",
             "Closed beta invitations",
             "Vote on the development roadmap"
           ],
           checkoutUrl: "https://buy.stripe.com/4gM14n36W1Dg8oX3Pm53O02",
-          featured: true
+          featured: true,
+          splash: "Recommended"
         },
         {
           id: "legendary",
           name: "Legendary",
           price: "USD $20",
           period: "/month",
-          tagline: "Legends fund legends.",
+          tagline: "Go all in on the mod.",
+          access: { included: true, label: "Includes early access" },
           perks: [
             "Everything in Super Warrior",
             "Priority feature suggestions",
-            "Legendary role and highlighted credits"
+            "Legendary role and a highlighted name in the credits"
           ],
           checkoutUrl: "https://buy.stripe.com/8x2bJ1bDs2HkfRp2Li53O03",
           featured: false
@@ -96,7 +101,7 @@ window.BLOCKYFY_PAYMENTS = {
           tagline: "Help us build the builder.",
           perks: [
             "Supporter role on Discord",
-            "Behind the scenes dev logs",
+            "Behind-the-scenes dev logs",
             "Your name in the credits"
           ],
           checkoutUrl: "",

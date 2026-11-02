@@ -67,6 +67,10 @@
       price.appendChild(period);
       card.appendChild(price);
 
+      if (tier.access && tier.access.label) {
+        card.appendChild(el("p", "tier-access " + (tier.access.included === true ? "yes" : "no"), tier.access.label));
+      }
+
       var list = el("ul");
       (tier.perks || []).forEach(function (perk) {
         list.appendChild(el("li", null, perk));
@@ -77,6 +81,7 @@
       if (checkoutUrl) {
         hasOpenCheckout = true;
         var link = el("a", "btn", "Subscribe");
+        link.appendChild(el("span", "sr-only", " to " + tier.name + " (opens in a new tab)"));
         link.href = checkoutUrl;
         link.target = "_blank";
         link.rel = "noopener";

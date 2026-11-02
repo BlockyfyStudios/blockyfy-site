@@ -5,26 +5,34 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.youtube-nocookie.com; connect-src 'none'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dragon Block Galactic | Blockyfy</title>
-<meta name="description" content="A Dragon Ball Minecraft mod with living civilizations, player-run empires, armies, planetary conquest and a world timeline shaped by powers like Frieza. Forge 1.20.1, free to play.">
-<meta property="og:title" content="Dragon Block Galactic">
-<meta property="og:description" content="Create a warrior. Found an empire. Command armies, raid or protect civilizations, take planets and change the fate of a living Dragon Ball galaxy.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#05070d">
+<title>Dragon Block Galactic: Dragon Ball Mod for Minecraft | Blockyfy</title>
+<meta name="description" content="A Dragon Ball mod for Minecraft Java 1.20.1, now in early access. Create a warrior, unlock 30+ transformations and face Frieza, Cell and Majin Buu.">
+<meta property="og:title" content="Dragon Block Galactic: Dragon Ball Mod for Minecraft">
+<meta property="og:description" content="Create a warrior, transform and fly across a living Dragon Ball galaxy. Now in early access for Minecraft Java 1.20.1.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Blockyfy">
 <meta property="og:url" content="https://blockyfy.net/projects/dragon-block-galactic">
-<meta property="og:image" content="https://blockyfy.net/assets/img/og-dbg.png">
+<meta property="og:image" content="https://blockyfy.net/assets/img/og-dbg.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Dragon Block Galactic logo over an in-game Super Saiyan God ritual.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@blockyfystudios">
-<meta name="twitter:image" content="https://blockyfy.net/assets/img/og-dbg.png">
+<meta name="twitter:image" content="https://blockyfy.net/assets/img/og-dbg.jpg">
+<meta name="twitter:image:alt" content="The Dragon Block Galactic logo over an in-game Super Saiyan God ritual.">
 <link rel="canonical" href="https://blockyfy.net/projects/dragon-block-galactic">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23e9c46a'/%3E%3Ccircle cx='9' cy='9' r='2' fill='%23c0392b'/%3E%3Ccircle cx='15' cy='13' r='2' fill='%23c0392b'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23ff9a1f'/%3E%3Cpath fill='%23c0392b' d='M12 7.2l1.2 2.8 3 .3-2.3 2 .7 2.9-2.6-1.6-2.6 1.6.7-2.9-2.3-2 3-.3z'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/landing.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;600&family=Pixelify+Sans:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/landing.css?v=20261102">
 </head>
-<body class="theme-gold">
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
 
 <div class="paper" aria-hidden="true"></div>
 
@@ -45,245 +53,367 @@
       <span></span><span></span><span></span>
     </button>
     <nav class="head-nav" id="nav">
-      <a href="/">Home</a>
-      <a href="#systems">Gameplay</a>
-      <a href="#spec">Spec</a>
+      <a href="#trailer">Trailer</a>
+      <a href="#features">Features</a>
       <a href="#faq">FAQ</a>
-      <a class="btn" href="#support">Support</a>
+      <a href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Discord</a>
+      <a class="btn" href="#support">Get early access</a>
     </nav>
   </div>
 </header>
 
-<main>
+<main id="main">
 
-<section class="hero hero-project">
-  <div class="wrap">
-    <p class="eyebrow">Blockyfy presents</p>
+<section class="hero-stage">
+  <figure class="hero-bg" aria-hidden="true">
+    <img src="../assets/img/shots/ssg-ritual-1600.webp" srcset="../assets/img/shots/ssg-ritual-960.webp 960w, ../assets/img/shots/ssg-ritual-1600.webp 1600w" sizes="100vw" alt="" width="1600" height="900" fetchpriority="high" decoding="async">
+  </figure>
+  <div class="wrap hero-content">
+    <p class="pill"><span class="dot" aria-hidden="true"></span>Early access<span class="sep" aria-hidden="true">/</span>Minecraft Java 1.20.1</p>
     <h1 class="hero-logo">
-      <!-- O logo aparece com no maximo 620px de CSS. A variante de 760w cobre celular em
-           2x (92vw num telefone de 412px pede 758); a de 1240w cobre o desktop em 2x.
-           760 e nao 672: com 672 o navegador achava curto e puxava a grande no celular.
-           O png so existe pra navegador sem webp. -->
       <picture>
         <source
           type="image/webp"
           srcset="../assets/img/dbg-logo-760.webp 760w, ../assets/img/dbg-logo.webp 1240w"
-          sizes="(max-width: 700px) 92vw, 620px">
-        <img src="../assets/img/dbg-logo.png" alt="Dragon Block Galactic" width="1240" height="274" fetchpriority="high" decoding="async">
+          sizes="(max-width: 800px) 92vw, 760px">
+        <img src="../assets/img/dbg-logo.png" alt="Dragon Block Galactic" width="1240" height="274" decoding="async">
       </picture>
     </h1>
-    <p class="lede">Dragon Block Galactic is not only about becoming the strongest fighter. Found an organization, recruit soldiers and build a treasury. Claim inhabited planets, demand tribute, raid rivals or defend civilizations under your protection. Meanwhile King Cold, Frieza and other galactic powers rise with the world's calendar, and their history can collide with yours.</p>
-    <ul class="chips">
-      <li class="on">Free to play</li>
-      <li>Minecraft Java Edition</li>
-      <li>Forge 1.20.1</li>
-      <li>In development</li>
-    </ul>
+    <p class="hero-tagline">Your own Dragon Ball story, in a galaxy that doesn't wait for you.</p>
+    <p class="hero-lede">Create a warrior, train past your limits and fly from planet to planet while Frieza, the Saiyans and the Red Ribbon Army make their moves. Stop them, join them or build an empire of your own.</p>
     <div class="cta-row">
-      <a class="btn" href="#support">Become a supporter</a>
-      <a class="btn btn-ghost" href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Discord / Support</a>
+      <a class="btn btn-lg" href="#support">Get early access</a>
+      <a class="btn btn-ghost btn-lg" href="#trailer">Watch the trailer</a>
     </div>
+    <p class="hero-note">Early access starts at USD $12/month with the Super Warrior plan.</p>
   </div>
 </section>
 
 <section class="specbar" aria-label="Dragon Block Galactic at a glance">
   <div class="wrap">
     <ul>
-      <li><b>Player-run</b><span>empires and organizations</span></li>
-      <li><b>Living</b><span>civilizations and races</span></li>
-      <li><b>Procedural</b><span>galaxy of planets</span></li>
-      <li><b>Persistent</b><span>territory and history</span></li>
-      <li><b>Server-side</b><span>combat and conquest</span></li>
-      <li><b>Free</b><span>now and always</span></li>
+      <li><b>8</b><span>playable races</span></li>
+      <li><b>30+</b><span>transformations</span></li>
+      <li><b>1 galaxy</b><span>to fly across</span></li>
+      <li><b>Multiplayer</b><span>built for servers</span></li>
     </ul>
   </div>
 </section>
 
-<section class="section" id="spec">
+<section class="section" id="trailer">
   <div class="wrap">
     <header class="sec-head rise">
-      <span class="sec-num">&sect; 01</span>
-      <h2 class="display">What it is</h2>
-      <p class="note">Built like a game, not a mod pack</p>
-    </header>
-
-    <article class="proj rise">
-      <div class="proj-copy">
-        <p class="proj-tag">Flagship &middot; In development</p>
-        <h3 class="display">A full game, grown inside Minecraft</h3>
-        <p>This is not a texture pack with powers. You can live as a fighter or build an empire inside the same persistent galaxy. Inhabited worlds have leaders, economies, politics and conflicts; borders are backed by soldiers, not menu flags. Combat and conquest are resolved by the server, so a modified client cannot invent power or territory.</p>
-        <p>Development happens in the open. Systems are engineered, tested in game with the community and shipped when they hold up, never before. Save compatibility is treated as a contract: a world you started months ago still opens.</p>
-        <div class="cta-row">
-          <a class="btn btn-ghost" href="#systems">Explore the gameplay</a>
-          <a class="btn btn-ghost" href="#faq">Read the FAQ</a>
-        </div>
-      </div>
-      <div class="spec">
-        <dl>
-          <div><dt>Platform</dt><dd>Minecraft Java</dd></div>
-          <div><dt>Loader</dt><dd>Forge 1.20.1</dd></div>
-          <div><dt>Playable races</dt><dd class="hi">6</dd></div>
-          <div><dt>Native species</dt><dd>generated</dd></div>
-          <div><dt>Galaxy</dt><dd>procedural</dd></div>
-          <div><dt>Civilizations</dt><dd>living</dd></div>
-          <div><dt>Player empires</dt><dd>yes</dd></div>
-          <div><dt>Planet control</dt><dd>persistent</dd></div>
-          <div><dt>Combat and conquest</dt><dd>server judged</dd></div>
-          <div><dt>World history</dt><dd>real time</dd></div>
-          <div><dt>Multiplayer</dt><dd>yes</dd></div>
-          <div><dt>Price</dt><dd class="hi">free</dd></div>
-        </dl>
-      </div>
-    </article>
-  </div>
-</section>
-
-<section class="section" id="systems">
-  <div class="wrap">
-    <header class="sec-head rise">
-      <span class="sec-num">&sect; 02</span>
-      <h2 class="display">Gameplay</h2>
-      <p class="note">Official trailer in production</p>
+      <p class="eyebrow">Official trailer</p>
+      <h2 class="display">See it in motion</h2>
     </header>
 
     <div class="trailer-block rise">
-      <!-- Add the 11-character YouTube video ID below when the trailer is public. -->
-      <div class="trailer-stage" data-youtube-id="" data-youtube-title="Dragon Block Galactic official gameplay trailer">
+      <div class="trailer-stage" data-youtube-id="RAY1_UlutXY" data-youtube-title="Dragon Block Galactic official trailer">
+        <img class="trailer-poster" src="../assets/img/shots/trailer-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async">
         <div class="trailer-placeholder">
-          <img class="trailer-mark" src="../assets/img/dbg-logo.png" alt="" width="1240" height="274" loading="lazy" decoding="async" aria-hidden="true">
-          <button class="trailer-play" type="button" aria-label="Official trailer coming soon" disabled>
+          <button class="trailer-play" type="button" aria-label="Official trailer" disabled>
             <span class="trailer-play-icon" aria-hidden="true"></span>
           </button>
-          <p class="trailer-status" data-trailer-status>Official trailer &middot; Coming soon</p>
-          <p class="trailer-status-detail" data-trailer-detail>Gameplay reveal currently in production</p>
+          <p class="trailer-status" data-trailer-status>Official trailer</p>
+          <p class="trailer-status-detail" data-trailer-detail>Watch it on YouTube</p>
         </div>
-      </div>
-      <div class="trailer-context">
-        <div>
-          <p class="feature-kicker">Official reveal</p>
-          <h3 class="display">The galaxy deserves motion.</h3>
-        </div>
-        <p>The trailer will carry the speed and scale. The sections below explain the simulation behind it: civilizations, borders and a history that a montage alone cannot show.</p>
       </div>
     </div>
+    <p class="trailer-alt">Pressing play loads the YouTube player. You can also <a href="https://www.youtube.com/watch?v=RAY1_UlutXY" target="_blank" rel="noopener">watch the trailer on YouTube</a>.</p>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="wrap">
+    <header class="sec-head rise">
+      <p class="eyebrow">What you can do</p>
+      <h2 class="display">Your Dragon Ball adventure, inside Minecraft</h2>
+    </header>
+
+    <div class="features">
+      <article class="feature rise">
+        <figure class="feature-media">
+          <img src="../assets/img/shots/god-form.webp" alt="A player in Super Saiyan God form, surrounded by a red and orange flame aura, while three other Saiyans watch." width="960" height="720" loading="lazy" decoding="async">
+          <figcaption>In game: Super Saiyan God</figcaption>
+        </figure>
+        <div class="feature-copy">
+          <p class="feature-kicker">Create &amp; transform</p>
+          <h3>Pick a race. Break your limits.</h3>
+          <p>Play as a Saiyan, Half-Saiyan, Human, Namekian, Arcosian, Majin or Bio-Android. Or design your own alien race. Train and fight to grow stronger, learn techniques from masters, and unlock over 30 transformations, from Super Saiyan and Kaioken to Super Saiyan God and Blue.</p>
+          <ul class="chips">
+            <li>8 races</li>
+            <li>30+ forms</li>
+            <li>Ki blasts &amp; flight</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature rise">
+        <figure class="feature-media">
+          <img src="../assets/img/shots/space-flight.webp" alt="A player flying through open space above a burning orange surface, with stars streaking past and a teal nebula in the distance." width="960" height="720" loading="lazy" decoding="async">
+          <figcaption>In game: open space flight</figcaption>
+        </figure>
+        <div class="feature-copy">
+          <p class="feature-kicker">Explore</p>
+          <h3>Fly from Earth to the edge of the galaxy.</h3>
+          <p>Leave the atmosphere and fly between planets in one continuous world. Visit Namek, Planet Vegeta, Vampa, Yardrat, Beerus' planet and the Supreme Kai's world. Die, and the Other World is waiting.</p>
+          <ul class="chips">
+            <li>Seamless space flight</li>
+            <li>Story &amp; procedural planets</li>
+            <li>The Other World</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature rise">
+        <figure class="feature-media">
+          <img src="../assets/img/shots/supernova.webp" alt="Frieza on top of his ship, holding a giant burning Supernova attack above his head." width="720" height="540" loading="lazy" decoding="async">
+          <figcaption>In game: Frieza's Supernova</figcaption>
+        </figure>
+        <div class="feature-copy">
+          <p class="feature-kicker">Live the saga</p>
+          <h3>History happens. You can change it.</h3>
+          <p>The galaxy runs on its own calendar. Frieza attacks Planet Vegeta in Age 737, the Red Ribbon Army rises on Earth, the Androids and Cell arrive, and Majin Buu waits behind his seal. Fight beside Goku, Vegeta and Future Trunks, or sign up with the Cold Empire instead.</p>
+          <ul class="chips">
+            <li>Frieza &amp; the Ginyu Force</li>
+            <li>Androids &amp; Cell</li>
+            <li>Majin Buu</li>
+            <li>Broly</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="empires">
+  <div class="wrap">
+    <header class="sec-head rise">
+      <p class="eyebrow">A living galaxy</p>
+      <h2 class="display" id="galaxy-depth-title">Don't just visit the galaxy. Rule part of it.</h2>
+      <p class="sec-sub">Every inhabited world can become an ally, a protectorate or a target. Build something big enough to rival Frieza.</p>
+    </header>
 
     <section class="galaxy-depth rise" aria-labelledby="galaxy-depth-title">
-      <header class="galaxy-depth-intro">
-        <div>
-          <p class="feature-kicker">The real fantasy</p>
-          <h3 class="display" id="galaxy-depth-title">Do not just visit the galaxy. Become one of its powers.</h3>
-        </div>
-        <p>Every inhabited world can become an ally, a responsibility or a target. Build something large enough and your organization becomes part of the same history as the powers that were already there.</p>
-      </header>
-
       <article class="galaxy-event">
-        <p class="feature-kicker">One event / Age 737</p>
+        <p class="feature-kicker">Age 737</p>
         <div>
-          <h4 class="display">Frieza lands with a hundred soldiers. Planet Vegeta does not have to die.</h4>
-          <p>Defeat him before the attack launches, repel the planet-killing blast, or fail and let that world's history change permanently.</p>
+          <h3>Frieza lands with a hundred soldiers. Planet Vegeta does not have to die.</h3>
+          <p>Beat him before the attack starts, deflect the blast meant to destroy the planet, or fail and watch it burn.</p>
         </div>
       </article>
 
       <div class="galaxy-depth-panels">
         <article class="galaxy-depth-panel">
-          <p class="feature-kicker">01 / A galaxy already alive</p>
-          <h4>A world with rulers, needs and grudges</h4>
-          <p class="galaxy-panel-lede">Civilizations are societies, not scenery. Their people, economy and politics continue whether you help, exploit or ignore them.</p>
+          <p class="feature-kicker">Their worlds</p>
+          <h3>Worlds with rulers, needs and grudges</h3>
+          <p class="galaxy-panel-lede">These are societies, not scenery. They keep going whether you help them, exploit them or ignore them.</p>
           <ul class="galaxy-points">
-            <li><strong>Living civilizations</strong><span>Generated species have leaders, political blocs, markets, shortages, technological eras, conflicts and changing relationships.</span></li>
-            <li><strong>Known galactic powers</strong><span>The Cold Empire, Saiyan Army and Red Ribbon Army rise, expand or fall with the calendar; the Galactic Patrol acts across that same map.</span></li>
-            <li><strong>History with consequences</strong><span>Occupations, rebellions, liberation, destruction and restoration remain part of that world's story.</span></li>
+            <li><strong>Living civilizations</strong><span>Every species has leaders, political blocs, markets, shortages, a technology era and its own conflicts.</span></li>
+            <li><strong>Known galactic powers</strong><span>The Cold Empire, the Saiyan Army and the Red Ribbon Army rise and fall with the calendar, while the Galactic Patrol polices the same space.</span></li>
+            <li><strong>Consequences that stay</strong><span>Occupations, rebellions and liberations stay part of each world's story. So does a planet you destroy or restore.</span></li>
           </ul>
         </article>
 
         <article class="galaxy-depth-panel galaxy-depth-panel-player">
-          <p class="feature-kicker">02 / Your empire</p>
-          <h4>Put your own banner on the map</h4>
-          <p class="galaxy-panel-lede">Found an organization with ranks, soldiers, a shared treasury and territory that has to be defended physically.</p>
+          <p class="feature-kicker">Your empire</p>
+          <h3>Put your own banner on the map</h3>
+          <p class="galaxy-panel-lede">Found an organization with ranks, soldiers and a shared treasury, and hold territory you have to defend in person.</p>
           <ul class="galaxy-points">
-            <li><strong>Claim and govern planets</strong><span>Build garrisons, collect tribute from occupied civilizations and keep an army paid across multiple worlds.</span></li>
-            <li><strong>Raid, protect or liberate</strong><span>Order assaults, coordinate allies, defend protectorates and restore a civilization without annexing it.</span></li>
-            <li><strong>Change borders permanently</strong><span>Negotiate treaties, vassalage or consensual annexation; seize worlds, survive uprisings and destroy or restore eligible planets.</span></li>
+            <li><strong>Claim and govern planets</strong><span>Build garrisons, collect tribute from occupied civilizations and keep an army paid across several worlds.</span></li>
+            <li><strong>Raid, protect or liberate</strong><span>Lead assaults with your allies, defend your protectorates or drive out a world's occupiers without taking it over.</span></li>
+            <li><strong>Redraw the borders</strong><span>Sign treaties, take vassals or welcome a world that wants to join. Seize worlds, survive uprisings, and destroy or restore planets.</span></li>
           </ul>
         </article>
       </div>
 
-      <p class="galaxy-dev-note"><strong>Development note:</strong> the empire experience is under active multiplayer and performance verification. Scope, balance and availability may change before the public alpha.</p>
+      <p class="galaxy-dev-note"><strong>Early-access note:</strong> empires are still being tested in multiplayer and may change between builds.</p>
     </section>
+  </div>
+</section>
+
+<section class="section" id="more">
+  <div class="wrap">
+    <header class="sec-head rise">
+      <p class="eyebrow">And plenty more</p>
+      <h2 class="display">More ways to play</h2>
+    </header>
+
+    <div class="cards rise">
+      <article class="card">
+        <h3>Dragon Balls</h3>
+        <p>Track down all seven with the Dragon Radar, then summon Shenron on Earth or Porunga on Namek and make your wish.</p>
+      </article>
+      <article class="card">
+        <h3>Fusion</h3>
+        <p>Fuse with a friend, or even an NPC, using Potara earrings or the Fusion Dance.</p>
+      </article>
+      <article class="card">
+        <h3>Gods &amp; angels</h3>
+        <p>Earn Super Saiyan God through the ritual, spar with Whis, or become a God of Destruction yourself.</p>
+      </article>
+      <article class="card">
+        <h3>The Other World</h3>
+        <p>Death isn't the end. Walk Snake Way, train with King Kai, enter the Other World tournament, or get wished back.</p>
+      </article>
+      <article class="card">
+        <h3>Built for multiplayer</h3>
+        <p>The server decides every hit, transformation and conquest, so everyone sees the same fight and a modified client can't fake its way to power.</p>
+      </article>
+      <article class="card">
+        <h3>Your world carries over</h3>
+        <p>We treat save compatibility as a rule. A world you started on an earlier build keeps working when the next one arrives.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="videos">
+  <div class="wrap">
+    <header class="sec-head rise">
+      <p class="eyebrow">Videos</p>
+      <h2 class="display">Watch the updates</h2>
+    </header>
+
+    <div class="videos rise">
+      <a class="video-card" href="https://www.youtube.com/watch?v=L2QWeNw_k5w" target="_blank" rel="noopener">
+        <span class="video-thumb">
+          <img src="../assets/img/shots/ssg-ritual-960.webp" alt="" width="960" height="540" loading="lazy" decoding="async">
+          <span class="video-play" aria-hidden="true"></span>
+        </span>
+        <span class="video-body">
+          <strong>The Super Saiyan God ritual</strong>
+          <span>YouTube</span>
+        </span>
+      </a>
+      <a class="video-card" href="https://www.youtube.com/watch?v=qYa-AoSTTOQ" target="_blank" rel="noopener">
+        <span class="video-thumb">
+          <img src="../assets/img/shots/planet-burst.webp" alt="" width="720" height="405" loading="lazy" decoding="async">
+          <span class="video-play" aria-hidden="true"></span>
+        </span>
+        <span class="video-body">
+          <strong>Frieza attacks Planet Vegeta</strong>
+          <span>YouTube</span>
+        </span>
+      </a>
+      <a class="video-card" href="https://www.youtube.com/watch?v=HWaQFLZ4mes" target="_blank" rel="noopener">
+        <span class="video-thumb">
+          <img src="../assets/img/shots/arm-wrestle.webp" alt="" width="960" height="540" loading="lazy" decoding="async">
+          <span class="video-play" aria-hidden="true"></span>
+        </span>
+        <span class="video-body">
+          <strong>A Super Saiyan God arm-wrestle</strong>
+          <span>YouTube</span>
+        </span>
+      </a>
+    </div>
+    <div class="videos-more">
+      <a class="btn btn-ghost" href="https://www.youtube.com/@BlockyfyStudios/videos" target="_blank" rel="noopener">More videos on YouTube</a>
+    </div>
   </div>
 </section>
 
 <section class="section" id="support">
   <div class="wrap">
     <header class="sec-head rise">
-      <span class="sec-num">&sect; 03</span>
-      <h2 class="display">Power up the project</h2>
-      <p class="note">The mod stays free either way</p>
+      <p class="eyebrow">Early access</p>
+      <h2 class="display">Play it now</h2>
     </header>
 
-    <p class="lede rise support-intro">Dragon Block Galactic is free and will remain free. Supporters fund development and receive only the benefits listed for their selected plan. Some plans include early builds, closed beta invitations or roadmap voting. Protected builds require joining the Blockyfy Discord server and completing one-time verification. No perk ever changes the balance of the game.</p>
+    <p class="lede rise support-intro">Dragon Block Galactic is in early access. Pick a plan marked “Includes early access” and you get every new build as soon as it's ready, straight from our Discord. Your support pays for development. No publisher, no ads, no <span class="nowrap">pay-to-win</span>.</p>
 
-    <div class="tiers rise" data-tiers="dragon-block-galactic" aria-label="Dragon Block Galactic supporter plans"></div>
+    <div class="tiers rise" data-tiers="dragon-block-galactic" role="group" aria-label="Dragon Block Galactic supporter plans"></div>
     <noscript>
-      <div class="tiers" aria-label="Dragon Block Galactic supporter plans">
+      <div class="tiers" role="group" aria-label="Dragon Block Galactic supporter plans">
         <article class="tier" data-tier-id="warrior">
           <h3>Warrior</h3>
           <div class="price">USD $4<small>/month</small></div>
-          <a class="btn" href="https://buy.stripe.com/dRm28r9vkeq248H99G53O01" target="_blank" rel="noopener">Subscribe</a>
+          <p class="tier-access no">Doesn't include the game</p>
+          <a class="btn" href="https://buy.stripe.com/dRm28r9vkeq248H99G53O01" target="_blank" rel="noopener">Subscribe<span class="sr-only"> to Warrior (opens in a new tab)</span></a>
         </article>
         <article class="tier featured" data-tier-id="super-warrior">
-          <span class="splash">Early Access!</span>
+          <span class="splash">Recommended</span>
           <h3>Super Warrior</h3>
           <div class="price">USD $12<small>/month</small></div>
-          <a class="btn" href="https://buy.stripe.com/4gM14n36W1Dg8oX3Pm53O02" target="_blank" rel="noopener">Subscribe</a>
+          <p class="tier-access yes">Includes early access</p>
+          <a class="btn" href="https://buy.stripe.com/4gM14n36W1Dg8oX3Pm53O02" target="_blank" rel="noopener">Subscribe<span class="sr-only"> to Super Warrior (opens in a new tab)</span></a>
         </article>
         <article class="tier" data-tier-id="legendary">
           <h3>Legendary</h3>
           <div class="price">USD $20<small>/month</small></div>
-          <a class="btn" href="https://buy.stripe.com/8x2bJ1bDs2HkfRp2Li53O03" target="_blank" rel="noopener">Subscribe</a>
+          <p class="tier-access yes">Includes early access</p>
+          <a class="btn" href="https://buy.stripe.com/8x2bJ1bDs2HkfRp2Li53O03" target="_blank" rel="noopener">Subscribe<span class="sr-only"> to Legendary (opens in a new tab)</span></a>
         </article>
       </div>
     </noscript>
-    <p class="tiers-note">The mod is free and will remain free. Supporting funds development and unlocks only the perks listed for the selected plan. Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access; the first protected Minecraft login proves the official account with Mojang and links its UUID automatically. Secure checkout by Stripe. Cancel anytime from the customer portal.</p>
-    <p class="fulfillment-note"><strong>Discord membership is required for protected access.</strong> Join the <a href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Blockyfy server</a>, use your actual Discord username (not your display name), allow direct messages from server members, and open the one-time verification link sent by the bot. Until verification is complete, early-access builds and closed betas remain locked even if a Minecraft username was provided at checkout. On the first protected Minecraft login, the service verifies your official game session with Mojang and links the proven account automatically; no second Discord approval is required. Access is available only when the selected plan explicitly includes it and a build or test is available.</p>
-    <p class="fulfillment-note"><strong>Need help?</strong> The <a href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Blockyfy Discord server</a> is our primary support channel for access, verification, builds, installation and gameplay. Use <a href="mailto:contact@blockyfy.net">contact@blockyfy.net</a> for billing, privacy or legal requests.</p>
-    <p class="purchase-links">Listed prices represent recurring monthly charges in USD. Stripe checkout may instead present a supported local currency, which becomes the subscription's billing currency. Before subscribing, read our <a href="/legal/terms">Membership terms</a>, <a href="/legal/refunds">Refund policy</a>, <a href="/legal/fulfillment">Fulfillment and cancellation policy</a>, and <a href="/legal/privacy">Privacy policy</a>.</p>
-    <p class="support-alt">Play more than one Blockyfy game? Become a <a href="/#support">global Blockyfy Supporter</a> and get the perks of every project at once.</p>
+    <p class="tiers-note">Early-access builds, closed betas and other protected benefits require joining the Blockyfy Discord server and completing one-time verification. A Minecraft username alone does not unlock access. The first protected Minecraft login proves the official account with Mojang and links its UUID automatically. Secure checkout by Stripe. Cancel anytime from the customer portal.</p>
+
+    <h3 class="steps-title">How to get in</h3>
+    <ol class="steps">
+      <li>
+        <h4>Pick a plan with early access</h4>
+        <p>Super Warrior, Legendary or the all-access Blockyfy Supporter. At checkout, enter your actual Discord username (not your display name) and your exact Minecraft username.</p>
+      </li>
+      <li>
+        <h4>Join Discord and verify</h4>
+        <p>Join the <a href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Blockyfy server</a>, allow direct messages from server members, and open the one-time verification link our bot sends you.</p>
+        <p>Discord membership is required for protected access. Until you verify, early-access builds and closed betas remain locked even if a Minecraft username was provided at checkout.</p>
+      </li>
+      <li>
+        <h4>Download and play</h4>
+        <p>Grab the latest build from Discord. On your first protected Minecraft login, Blockyfy verifies your official game session with Mojang and links the proven account automatically. No second approval needed.</p>
+      </li>
+    </ol>
+
+    <div class="support-foot">
+      <div>
+        <p class="fulfillment-note"><strong>Need help?</strong> The <a href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Blockyfy Discord server</a> is our primary support channel for access, verification, builds, installation and gameplay. Use <a href="mailto:contact@blockyfy.net">contact@blockyfy.net</a> for billing, privacy or legal requests.</p>
+        <p class="support-alt">Want every Blockyfy game, now and later? The all-access <a href="/#support">Blockyfy Supporter</a> plan covers them all for USD $30/month.</p>
+      </div>
+      <p class="purchase-links">Listed prices represent recurring monthly charges in USD. Stripe checkout may instead present a supported local currency, which becomes the subscription's billing currency. Each plan includes only the benefits listed on it, and a build or test must be available for a build benefit to apply. Before subscribing, read our <a href="/legal/terms">Membership terms</a>, <a href="/legal/refunds">Refund policy</a>, <a href="/legal/fulfillment">Fulfillment and cancellation policy</a>, and <a href="/legal/privacy">Privacy policy</a>.</p>
+    </div>
   </div>
 </section>
 
 <section class="section" id="faq">
-  <div class="wrap">
-    <header class="sec-head rise">
-      <span class="sec-num">&sect; 04</span>
-      <h2 class="display">Questions</h2>
-      <p class="note">Answered straight</p>
+  <div class="wrap faq-layout">
+    <header class="sec-head faq-head rise">
+      <p class="eyebrow">FAQ</p>
+      <h2 class="display">Good to know</h2>
+      <p class="sec-sub">Can't find your answer? Ask us on Discord.</p>
+      <div class="cta-row">
+        <a class="btn btn-discord" href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Ask on Discord</a>
+      </div>
     </header>
 
     <div class="faq rise">
       <details>
-        <summary>When does the mod release?</summary>
-        <p>When it is ready. We do not announce dates, because we only ship systems that hold up in real play. Supporters can follow development from the inside; trying builds before public release is limited to plans that explicitly include early access.</p>
+        <summary>Can I play it right now?</summary>
+        <p>Yes, if your plan includes early access: Super Warrior, Legendary or the all-access Blockyfy Supporter. The Warrior plan doesn't include the game. New builds go out through our Discord. Expect bugs, balance changes and big new features between builds.</p>
       </details>
       <details>
-        <summary>Is the mod paid?</summary>
-        <p>No. The public version is free to download and play, always. Supporting funds development. Early builds or closed beta invitations are included only when they are explicitly listed in the selected plan and a build or test is available.</p>
-      </details>
-      <details>
-        <summary>How do I receive my supporter perks?</summary>
-        <p>First join the Blockyfy Discord server. At checkout, enter your actual Discord username, not your display name, and your exact Minecraft username. Both fields are required, but a Minecraft username never unlocks access by itself. Allow direct messages from server members, then open the one-time verification link sent by the Blockyfy bot. On the first protected Minecraft login, the service verifies the official game session with Mojang and links the proven account automatically; there is no separate Minecraft approval or second login. Your Discord role and any included early-access build or closed beta remain locked until payment and Discord verification are confirmed. Dev logs, builds and beta invitations are delivered through the community server only when included in your selected plan.</p>
-      </details>
-      <details>
-        <summary>Where can I get support?</summary>
-        <p>The <a href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Blockyfy Discord server</a> is our primary support channel for access, account verification, builds, installation and gameplay. For billing, privacy or legal requests, email <a href="mailto:contact@blockyfy.net">contact@blockyfy.net</a>.</p>
-      </details>
-      <details>
-        <summary>Can I cancel anytime?</summary>
-        <p>Yes. Sign in to the <a href="https://billing.stripe.com/p/login/aFacN5bDsfu60Wv0Da53O00" target="_blank" rel="noopener noreferrer">secure Stripe customer portal</a> with the email used at checkout to cancel or change your tier. You keep your perks until the end of the billing period.</p>
+        <summary>When is the full release?</summary>
+        <p>When it's ready. We don't set dates. We only ship a feature once it holds up in real play. Until then, playing builds is limited to plans that explicitly include early access.</p>
       </details>
       <details>
         <summary>What do I need to play?</summary>
-        <p>Minecraft Java Edition 1.20.1 with Forge. Detailed installation instructions ship with every build.</p>
+        <p>Three things: a plan that includes early access, your own official Minecraft Java Edition account and Forge for Minecraft 1.20.1. Every build comes with installation instructions. If you get stuck, ask on Discord.</p>
+      </details>
+      <details>
+        <summary>Does it work in multiplayer?</summary>
+        <p>Yes. Play together on a server running the mod. Each player needs their own plan that includes early access, and everyone must be on the same build as the server.</p>
+      </details>
+      <details>
+        <summary>How do I receive my supporter perks?</summary>
+        <p>Subscribe, then join our Discord and open the one-time verification link our bot sends you. At checkout, enter your actual Discord username, not your display name, and your exact Minecraft username. Both fields are required, but a Minecraft username never unlocks access by itself. Your Discord role and any included build or beta unlock once payment and Discord verification are confirmed. Your first protected Minecraft login then links your game account automatically.</p>
+      </details>
+      <details>
+        <summary>Where can I get support?</summary>
+        <p>The <a href="https://discord.gg/H6xtA9x3qe" target="_blank" rel="noopener">Blockyfy Discord server</a> is our primary support channel for access, verification, builds, installation and gameplay. For billing, privacy or legal requests, email <a href="mailto:contact@blockyfy.net">contact@blockyfy.net</a>.</p>
+      </details>
+      <details>
+        <summary>Can I cancel anytime?</summary>
+        <p>Yes. To cancel or change your plan, sign in to the <a href="https://billing.stripe.com/p/login/aFacN5bDsfu60Wv0Da53O00" target="_blank" rel="noopener noreferrer">secure Stripe customer portal</a> with the email you used at checkout. You keep your perks until the end of the billing period.</p>
       </details>
     </div>
   </div>
@@ -305,7 +435,7 @@
         </svg>
         BLOCKYFY
       </a>
-      <p class="foot-blurb">An independent game studio building worlds that run on their own rules.</p>
+      <p class="foot-blurb">An independent game studio. We make Dragon Block Galactic.</p>
     </div>
     <div class="foot-col">
       <strong>Community</strong>
@@ -317,8 +447,8 @@
     </div>
     <div class="foot-col">
       <strong>Studio</strong>
-      <a href="/#studio">How we build</a>
-      <a href="/#support">Support the studio</a>
+      <a href="/#studio">About Blockyfy</a>
+      <a href="/#support">Studio membership</a>
       <a href="https://billing.stripe.com/p/login/aFacN5bDsfu60Wv0Da53O00" target="_blank" rel="noopener noreferrer">Manage subscription</a>
       <a href="mailto:contact@blockyfy.net">Email (billing, privacy &amp; legal)</a>
     </div>
@@ -331,15 +461,15 @@
     </div>
     <div class="fine">
       <span>&copy; <span data-year>2026</span> Blockyfy. All rights reserved.</span>
-      <span>Service provider: Blockyfy, independent game studio. Contact: <a href="mailto:contact@blockyfy.net">contact@blockyfy.net</a>.</span>
+      <span>Service provider: Blockyfy, an independent game studio. Contact: <a href="mailto:contact@blockyfy.net">contact@blockyfy.net</a>.</span>
       <span>Payments processed securely by Stripe.</span>
-      <span>Dragon Block Galactic is a free fan project. Not affiliated with Mojang, Microsoft, Toei Animation or Shueisha.</span>
+      <span>Dragon Block Galactic is a fan project. Not affiliated with Mojang, Microsoft, Toei Animation or Shueisha.</span>
     </div>
   </div>
 </footer>
 
-<script src="../payments.config.js"></script>
-<script src="../assets/js/checkout.js"></script>
-<script src="../assets/js/landing.js"></script>
+<script src="../payments.config.js?v=20261102"></script>
+<script src="../assets/js/checkout.js?v=20261102"></script>
+<script src="../assets/js/landing.js?v=20261102"></script>
 </body>
 </html>

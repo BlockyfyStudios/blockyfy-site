@@ -25,6 +25,10 @@
         closeMenu(false);
       }
     });
+    nav.addEventListener("focusout", function (e) {
+      var next = e.relatedTarget;
+      if (next && next !== burger && !nav.contains(next)) closeMenu(false);
+    });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && nav.classList.contains("open")) closeMenu(true);
     });
@@ -42,7 +46,7 @@
     play.disabled = false;
     play.setAttribute("aria-label", "Play the official Dragon Block Galactic trailer");
     if (status) status.textContent = "Official gameplay trailer";
-    if (detail) detail.textContent = "Play now";
+    if (detail) detail.textContent = "Watch now";
 
     play.addEventListener("click", function () {
       var iframe = document.createElement("iframe");
@@ -52,9 +56,34 @@
       iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
       iframe.setAttribute("allowfullscreen", "");
       frame.replaceChildren(iframe);
+      if (iframe.focus) iframe.focus();
       frame.classList.add("trailer-playing");
     }, { once: true });
   });
+
+  var sectionLinks = document.querySelectorAll('.head-nav a[href^="#"]:not(.btn)');
+  if (sectionLinks.length && "IntersectionObserver" in window) {
+    var linkFor = {};
+    sectionLinks.forEach(function (link) {
+      linkFor[link.getAttribute("href").slice(1)] = link;
+    });
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var link = linkFor[en.target.id];
+        if (!link) return;
+        if (en.isIntersecting) {
+          sectionLinks.forEach(function (other) { other.classList.remove("is-active"); });
+          link.classList.add("is-active");
+        } else {
+          link.classList.remove("is-active");
+        }
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    Object.keys(linkFor).forEach(function (id) {
+      var section = document.getElementById(id);
+      if (section) spy.observe(section);
+    });
+  }
 
   var rise = document.querySelectorAll(".rise");
   if ("IntersectionObserver" in window && !reduceMotion) {
